@@ -192,6 +192,13 @@
       </div>
     </div>
 
+    <!-- CATEGORY FILTER BAR -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-3">
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar" id="category-filter-container">
+        <!-- Dynamic category filter buttons -->
+      </div>
+    </div>
+
     <!-- ARTWORK GALLERY / PADLET WALL GRID -->
     <div id="artwork-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
       <!-- Dynamic art cards loaded by JS -->
@@ -271,6 +278,14 @@
           </div>
         </div>
 
+        <!-- Project Category Select -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">과제 카테고리</label>
+          <select id="upload-category-select" onchange="onUploadCategoryChange()" class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 bg-white focus:border-indigo-500 outline-none font-semibold text-slate-800">
+            <!-- Dynamic category options -->
+          </select>
+        </div>
+
         <!-- Artwork Image Upload Area -->
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">작품 사진 첨부 (촬영 또는 갤러리)</label>
@@ -306,11 +321,11 @@
             <label class="text-xs font-bold text-slate-700">작품 내용 및 작가노트</label>
             <span class="text-[10px] text-indigo-600 font-semibold">* 선생님의 세특 작성에 직접 반영됩니다</span>
           </div>
-          <div class="bg-indigo-50/60 p-2.5 rounded-xl text-[11px] text-indigo-900 leading-snug mb-2 border border-indigo-100">
-            💡 <strong>작성 가이드:</strong><br>
-            1. 창작 동기와 표현하고자 한 주제는 무엇인가요?<br>
-            2. 어떤 조형 기법(색채, 구도, 재료, 질감)을 중점적으로 활용했나요?<br>
-            3. 작품을 완성하며 느낀 점이나 전하고 싶은 메시지는 무엇인가요?
+          <div id="upload-category-guide" class="bg-indigo-50/60 p-2.5 rounded-xl text-[11px] text-indigo-900 leading-snug mb-2 border border-indigo-100">
+            💡 <strong>우리학교 캐릭터 디자인 가이드:</strong><br>
+            1. 학교의 어떤 상징(교목 소나무, 교화 매화, 학교 역사 등)을 모티브로 선택했나요?<br>
+            2. 캐릭터의 비례, 형태 단순화, 상징색 배색에서 신경 쓴 부분은 무엇인가요?<br>
+            3. 교내 굿즈(스티커, 뱃지 등)나 홍보물로서 어떻게 활용될 수 있을까요?
           </div>
           <textarea id="upload-desc" required rows="4" 
             placeholder="위 가이드를 참고하여 자유롭게 자신의 작품을 설명해주세요..."

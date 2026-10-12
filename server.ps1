@@ -11,10 +11,12 @@ $publicDir = Join-Path $scriptDir "public"
 $dataDir = Join-Path $scriptDir "data"
 $postsFile = Join-Path $dataDir "posts.json"
 $classesFile = Join-Path $dataDir "classes.json"
+$categoriesFile = Join-Path $dataDir "categories.json"
 
 if (-not (Test-Path $dataDir)) { New-Item -ItemType Directory -Path $dataDir -Force | Out-Null }
 if (-not (Test-Path $postsFile)) { Set-Content -Path $postsFile -Value "[]" -Encoding UTF8 }
 if (-not (Test-Path $classesFile)) { Set-Content -Path $classesFile -Value "[]" -Encoding UTF8 }
+if (-not (Test-Path $categoriesFile)) { Set-Content -Path $categoriesFile -Value "[]" -Encoding UTF8 }
 
 # Get Local IPv4 Address
 function Get-LocalIP {
@@ -249,6 +251,17 @@ try {
                         Send-JsonResponse -Stream $stream -Data @{ success = $true }
                     }
                 }
+                elseif ($path -eq "/api/categories") {
+                    if ($method -eq "GET") {
+                        $catJson = Get-Content $categoriesFile -Raw -Encoding UTF8
+                        $bytes = [System.Text.Encoding]::UTF8.GetBytes($catJson)
+                        Send-Response -Stream $stream -ContentType "application/json; charset=utf-8" -BodyBytes $bytes
+                    }
+                    elseif ($method -eq "POST") {
+                        Set-Content -Path $categoriesFile -Value $body -Encoding UTF8
+                        Send-JsonResponse -Stream $stream -Data @{ success = $true }
+                    }
+                }
                 elseif ($path -eq "/api/posts") {
                     if ($method -eq "GET") {
                         $pJson = Get-Content $postsFile -Raw -Encoding UTF8
@@ -256,6 +269,10 @@ try {
                         if ($queryParams.ContainsKey("class") -and -not [string]::IsNullOrWhiteSpace($queryParams["class"])) {
                             $targetClass = $queryParams["class"]
                             $posts = @($posts | Where-Object { $_.classId -eq $targetClass })
+                        }
+                        if ($queryParams.ContainsKey("category") -and -not [string]::IsNullOrWhiteSpace($queryParams["category"])) {
+                            $targetCat = $queryParams["category"]
+                            $posts = @($posts | Where-Object { $_.categoryId -eq $targetCat })
                         }
                         Send-JsonResponse -Stream $stream -Data $posts
                     }

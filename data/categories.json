@@ -1,0 +1,30 @@
+[
+  {
+    "id": "cat-character",
+    "name": "우리학교 캐릭터 디자인 하기",
+    "icon": "🎨",
+    "badgeColor": "indigo",
+    "description": "교화, 교목, 학교의 역사와 학생들의 일상을 모티브로 상징성을 담아 시각화한 캐릭터 디자인"
+  },
+  {
+    "id": "cat-frame",
+    "name": "프레임으로 본 풍경",
+    "icon": "🖼️",
+    "badgeColor": "sky",
+    "description": "다양한 시각적 프레이밍(창문, 거울, 구조물 등)을 통해 공간감과 원근, 빛의 변화를 포착한 풍경화"
+  },
+  {
+    "id": "cat-eco",
+    "name": "생태미술 프로젝트",
+    "icon": "🌿",
+    "badgeColor": "emerald",
+    "description": "자연물, 친환경 업사이클링 소재를 탐구하고 환경 위기와 생명 존중 메시지를 전달하는 생태 미술"
+  },
+  {
+    "id": "cat-portrait",
+    "name": "상징으로 그리는 자화상",
+    "icon": "🎭",
+    "badgeColor": "violet",
+    "description": "단순한 외형 묘사를 넘어 상징적 사물, 색채, 왜곡 기법을 통해 자신의 내면과 정체성을 표현한 자화상"
+  }
+]

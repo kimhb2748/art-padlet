@@ -1,91 +1,91 @@
-﻿[
-    {
-        "id":  "post-101",
-        "classId":  "1-1",
-        "studentId":  "10101",
-        "studentName":  "강서준",
-        "title":  "시간의 잔상과 현대인의 속도",
-        "description":  "현대 사회는 너무 빠르게 흘러가서 개인의 소중한 순간들이 쉽게 잊혀집니다. 살바도르 달리의 초현실주의적 왜곡 기법에서 영감을 얻어, 빠르게 흘러가는 시간 속에서 남겨진 잔상과 허탈함을 시계의 곡선 왜곡과 붉은색에서 푸른색으로 변화하는 색채 그라데이션으로 표현했습니다. 특히 중심부의 시계 침이 흩뿌려지는 듯한 거친 붓터치를 주어 시간의 비가역성을 강조했습니다.",
-        "imageUrl":  "data:image/svg+xml;utf8,\u003csvg xmlns=\u0027http://www.w3.org/2000/svg\u0027 viewBox=\u00270 0 800 600\u0027 width=\u0027800\u0027 height=\u0027600\u0027\u003e\u003cdefs\u003e\u003clinearGradient id=\u0027bg1\u0027 x1=\u00270%\u0027 y1=\u00270%\u0027 x2=\u0027100%\u0027 y2=\u0027100%\u0027\u003e\u003cstop offset=\u00270%\u0027 stop-color=\u0027%231e1b4b\u0027/\u003e\u003cstop offset=\u002750%\u0027 stop-color=\u0027%234c1d95\u0027/\u003e\u003cstop offset=\u0027100%\u0027 stop-color=\u0027%23be123c\u0027/\u003e\u003c/linearGradient\u003e\u003clinearGradient id=\u0027clockGrad\u0027 x1=\u00270%\u0027 y1=\u00270%\u0027 x2=\u0027100%\u0027 y2=\u0027100%\u0027\u003e\u003cstop offset=\u00270%\u0027 stop-color=\u0027%23fef08a\u0027/\u003e\u003cstop offset=\u0027100%\u0027 stop-color=\u0027%23ca8a04\u0027/\u003e\u003c/linearGradient\u003e\u003cfilter id=\u0027glow\u0027\u003e\u003cfeGaussianBlur stdDeviation=\u00278\u0027 result=\u0027coloredBlur\u0027/\u003e\u003cfeMerge\u003e\u003cfeMergeNode in=\u0027coloredBlur\u0027/\u003e\u003cfeMergeNode in=\u0027SourceGraphic\u0027/\u003e\u003c/feMerge\u003e\u003c/filter\u003e\u003c/defs\u003e\u003crect width=\u0027800\u0027 height=\u0027600\u0027 fill=\u0027url(%23bg1)\u0027/\u003e\u003cpath d=\u0027M100,500 C300,450 500,550 700,480 L800,600 L0,600 Z\u0027 fill=\u0027%230f172a\u0027 opacity=\u00270.8\u0027/\u003e\u003cpath d=\u0027M250,180 C400,120 520,200 480,360 C450,480 320,440 260,350 C210,270 180,220 250,180 Z\u0027 fill=\u0027url(%23clockGrad)\u0027 filter=\u0027url(%23glow)\u0027 opacity=\u00270.9\u0027/\u003e\u003cpath d=\u0027M280,220 C380,180 440,240 420,340 C400,410 320,380 290,320 Z\u0027 fill=\u0027%23fef9c3\u0027 opacity=\u00270.95\u0027/\u003e\u003ccircle cx=\u0027350\u0027 cy=\u0027280\u0027 r=\u002710\u0027 fill=\u0027%231e293b\u0027/\u003e\u003cline x1=\u0027350\u0027 y1=\u0027280\u0027 x2=\u0027320\u0027 y2=\u0027220\u0027 stroke=\u0027%231e293b\u0027 stroke-width=\u00276\u0027 stroke-linecap=\u0027round\u0027/\u003e\u003cline x1=\u0027350\u0027 y1=\u0027280\u0027 x2=\u0027410\u0027 y2=\u0027310\u0027 stroke=\u0027%23dc2626\u0027 stroke-width=\u00274\u0027 stroke-linecap=\u0027round\u0027/\u003e\u003ctext x=\u0027350\u0027 y=\u0027210\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002720\u0027 font-weight=\u0027bold\u0027 fill=\u0027%23334155\u0027 text-anchor=\u0027middle\u0027\u003e12\u003c/text\u003e\u003ctext x=\u0027400\u0027 y=\u0027285\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002720\u0027 font-weight=\u0027bold\u0027 fill=\u0027%23334155\u0027 text-anchor=\u0027middle\u0027\u003e3\u003c/text\u003e\u003ctext x=\u0027330\u0027 y=\u0027360\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002720\u0027 font-weight=\u0027bold\u0027 fill=\u0027%23334155\u0027 text-anchor=\u0027middle\u0027\u003e6\u003c/text\u003e\u003ctext x=\u0027290\u0027 y=\u0027285\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002720\u0027 font-weight=\u0027bold\u0027 fill=\u0027%23334155\u0027 text-anchor=\u0027middle\u0027\u003e9\u003c/text\u003e\u003cpath d=\u0027M420,340 Q550,400 680,350\u0027 stroke=\u0027%23fef08a\u0027 stroke-width=\u00278\u0027 fill=\u0027none\u0027 stroke-dasharray=\u002712,12\u0027/\u003e\u003ccircle cx=\u0027680\u0027 cy=\u0027350\u0027 r=\u00276\u0027 fill=\u0027%23fef08a\u0027/\u003e\u003cg opacity=\u00270.4\u0027\u003e\u003ccircle cx=\u0027150\u0027 cy=\u0027120\u0027 r=\u002740\u0027 fill=\u0027%23a855f7\u0027/\u003e\u003ccircle cx=\u0027650\u0027 cy=\u0027160\u0027 r=\u002780\u0027 fill=\u0027%23ec4899\u0027/\u003e\u003cline x1=\u002750\u0027 y1=\u0027300\u0027 x2=\u0027750\u0027 y2=\u0027250\u0027 stroke=\u0027%23ffffff\u0027 stroke-width=\u00271\u0027 stroke-dasharray=\u00275,5\u0027/\u003e\u003c/g\u003e\u003ctext x=\u0027400\u0027 y=\u0027550\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002728\u0027 font-weight=\u0027bold\u0027 fill=\u0027%23ffffff\u0027 opacity=\u00270.85\u0027 text-anchor=\u0027middle\u0027\u003eTIME DISTORTION \u0026bull; ACRYLIC ON CANVAS\u003c/text\u003e\u003c/svg\u003e",
-        "createdAt":  "2026-10-10T10:15:00.000Z",
-        "likes":  12,
-        "comments":  [
-                         {
-                             "id":  "c1",
-                             "studentName":  "김민서",
-                             "content":  "달리의 기억의 지속 느낌도 나고 시계 왜곡 표현이 진짜 멋져!",
-                             "createdAt":  "2026-10-10T10:30:00.000Z"
-                         },
-                         {
-                             "id":  "c2",
-                             "studentName":  "이채원",
-                             "content":  "붉은색과 푸른색의 대비가 시간의 촉박함을 잘 보여주는 것 같아.",
-                             "createdAt":  "2026-10-10T11:05:00.000Z"
-                         }
-                     ],
-        "evaluation":  "‘시간의 잔상과 현대인의 속도’를 주제로 현대 사회의 속도감과 그에 따른 개인의 심리적 소외를 초현실주의적 조형 언어로 탁월하게 시각화함. 시계의 유기적 형태 왜곡과 한색에서 난색으로 이어지는 명도 대비를 전략적으로 구사하여 시간의 비가역성을 효과적으로 전달함. 거친 붓터치를 중첩하여 속도감과 잔상의 시각적 질감을 생생하게 구현하였으며, 동시대적 문제의식을 예술적으로 승화시키는 뛰어난 시각 소통 능력과 주제 탐구 역량을 보임.",
-        "evaluationBytes":  482,
-        "evaluationStyle":  "표현기법 및 조형미 중심"
-    },
-    {
-        "id":  "post-102",
-        "classId":  "1-1",
-        "studentId":  "10105",
-        "studentName":  "김민서",
-        "title":  "침묵 속의 외침 (The Silent Cry)",
-        "description":  "청소년기에는 주변의 기대와 학업 스트레스로 인해 겉으로는 밝게 웃고 있지만 속으로는 수많은 감정들이 소용돌이칩니다. 전통 수묵의 번짐 기법과 서양 펜화의 정밀한 해칭(hatching) 선묘를 융합하여 침묵하는 얼굴 윤곽 내부에 격렬한 파도와 먹물 파편을 배치했습니다. 흑백의 극명한 명암 대비를 통해 언어로 다 표현하지 못하는 내면의 고뇌와 성장의 열망을 표현하고자 했습니다.",
-        "imageUrl":  "data:image/svg+xml;utf8,\u003csvg xmlns=\u0027http://www.w3.org/2000/svg\u0027 viewBox=\u00270 0 800 600\u0027 width=\u0027800\u0027 height=\u0027600\u0027\u003e\u003crect width=\u0027800\u0027 height=\u0027600\u0027 fill=\u0027%2309090b\u0027/\u003e\u003ccircle cx=\u0027400\u0027 cy=\u0027300\u0027 r=\u0027220\u0027 fill=\u0027%2318181b\u0027 stroke=\u0027%233f3f46\u0027 stroke-width=\u00273\u0027/\u003e\u003cpath d=\u0027M250,300 Q400,100 550,300 Q400,500 250,300 Z\u0027 fill=\u0027%23fafafa\u0027 opacity=\u00270.9\u0027/\u003e\u003cpath d=\u0027M300,300 C320,240 380,220 400,280 C420,220 480,240 500,300 C480,380 420,400 400,340 C380,400 320,380 300,300 Z\u0027 fill=\u0027%2318181b\u0027/\u003e\u003cpath d=\u0027M350,280 Q400,320 450,280\u0027 stroke=\u0027%23ef4444\u0027 stroke-width=\u00276\u0027 fill=\u0027none\u0027 stroke-linecap=\u0027round\u0027/\u003e\u003cg stroke=\u0027%23ffffff\u0027 stroke-width=\u00271.5\u0027 opacity=\u00270.7\u0027\u003e\u003cline x1=\u0027280\u0027 y1=\u0027180\u0027 x2=\u0027340\u0027 y2=\u0027240\u0027/\u003e\u003cline x1=\u0027290\u0027 y1=\u0027170\u0027 x2=\u0027350\u0027 y2=\u0027230\u0027/\u003e\u003cline x1=\u0027300\u0027 y1=\u0027160\u0027 x2=\u0027360\u0027 y2=\u0027220\u0027/\u003e\u003cline x1=\u0027460\u0027 y1=\u0027180\u0027 x2=\u0027520\u0027 y2=\u0027240\u0027/\u003e\u003cline x1=\u0027470\u0027 y1=\u0027170\u0027 x2=\u0027530\u0027 y2=\u0027230\u0027/\u003e\u003cline x1=\u0027480\u0027 y1=\u0027160\u0027 x2=\u0027540\u0027 y2=\u0027220\u0027/\u003e\u003c/g\u003e\u003cpath d=\u0027M400,350 L380,500 L400,470 L420,520 Z\u0027 fill=\u0027%23ef4444\u0027/\u003e\u003ccircle cx=\u0027280\u0027 cy=\u0027380\u0027 r=\u002715\u0027 fill=\u0027%2338bdf8\u0027 opacity=\u00270.6\u0027/\u003e\u003ccircle cx=\u0027520\u0027 cy=\u0027380\u0027 r=\u002715\u0027 fill=\u0027%2338bdf8\u0027 opacity=\u00270.6\u0027/\u003e\u003ctext x=\u0027400\u0027 y=\u0027570\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002724\u0027 font-weight=\u0027bold\u0027 fill=\u0027%23e4e4e7\u0027 text-anchor=\u0027middle\u0027\u003ePEN \u0026amp; INK EXPERIMENTATION \u0026bull; SILENT EXPRESSION\u003c/text\u003e\u003c/svg\u003e",
-        "createdAt":  "2026-10-10T11:00:00.000Z",
-        "likes":  15,
-        "comments":  [
-                         {
-                             "id":  "c3",
-                             "studentName":  "박지후",
-                             "content":  "흑백 대비가 진짜 강렬하다. 붉은색 포인트가 인상적이야!",
-                             "createdAt":  "2026-10-10T11:20:00.000Z"
-                         }
-                     ],
-        "evaluation":  "‘침묵 속의 외침’을 주제로 동양화의 먹 번짐과 서양 펜화의 밀도 높은 해칭 기법을 독창적으로 절충하여 표현함. 흑백의 극명한 명암 대비를 통해 청소년기 내면의 복합적 갈등과 정서적 분출을 섬세하면서도 강렬한 조형미로 형상화함. 선의 굵기와 밀도를 정밀하게 조절하여 감정의 깊이를 구조화하였으며, 절제된 색채 운용 속에서 주제 의식을 극대화하는 수준 높은 미적 감수성과 조형 능력을 입증함.",
-        "evaluationBytes":  476,
-        "evaluationStyle":  "창의적 발상 및 주제의식 중심"
-    },
-    {
-        "id":  "post-103",
-        "classId":  "1-1",
-        "studentId":  "10112",
-        "studentName":  "박지후",
-        "title":  "도시의 틈, 초록의 숨결",
-        "description":  "매일 등하굣길에 마주치는 삭막한 콘크리트 보도블록 틈새에서 힘차게 피어난 민들레 한 송이를 보고 생명에 대한 경외감을 느꼈습니다. 회색 모노톤의 입체적 기하학 블록들과 그 틈을 비집고 솟아나는 강렬한 에메랄드빛 식물의 생명력을 대비시켰습니다. 실제 버려진 신문지와 한지를 콜라주하여 회색 벽의 거친 질감을 질감감(마티에르) 있게 살렸습니다.",
-        "imageUrl":  "data:image/svg+xml;utf8,\u003csvg xmlns=\u0027http://www.w3.org/2000/svg\u0027 viewBox=\u00270 0 800 600\u0027 width=\u0027800\u0027 height=\u0027600\u0027\u003e\u003cdefs\u003e\u003clinearGradient id=\u0027gradCity\u0027 x1=\u00270%\u0027 y1=\u00270%\u0027 x2=\u0027100%\u0027 y2=\u00270%\u0027\u003e\u003cstop offset=\u00270%\u0027 stop-color=\u0027%23334155\u0027/\u003e\u003cstop offset=\u0027100%\u0027 stop-color=\u0027%2364748b\u0027/\u003e\u003c/linearGradient\u003e\u003clinearGradient id=\u0027gradPlant\u0027 x1=\u00270%\u0027 y1=\u0027100%\u0027 x2=\u00270%\u0027 y2=\u00270%\u0027\u003e\u003cstop offset=\u00270%\u0027 stop-color=\u0027%2315803d\u0027/\u003e\u003cstop offset=\u0027100%\u0027 stop-color=\u0027%234ade80\u0027/\u003e\u003c/linearGradient\u003e\u003c/defs\u003e\u003crect width=\u0027800\u0027 height=\u0027600\u0027 fill=\u0027%231e293b\u0027/\u003e\u003crect x=\u0027100\u0027 y=\u0027150\u0027 width=\u0027250\u0027 height=\u0027350\u0027 fill=\u0027url(%23gradCity)\u0027 stroke=\u0027%230f172a\u0027 stroke-width=\u00274\u0027/\u003e\u003crect x=\u0027450\u0027 y=\u0027100\u0027 width=\u0027250\u0027 height=\u0027400\u0027 fill=\u0027url(%23gradCity)\u0027 stroke=\u0027%230f172a\u0027 stroke-width=\u00274\u0027/\u003e\u003cg fill=\u0027%230f172a\u0027 opacity=\u00270.7\u0027\u003e\u003crect x=\u0027130\u0027 y=\u0027180\u0027 width=\u002740\u0027 height=\u002750\u0027/\u003e\u003crect x=\u0027190\u0027 y=\u0027180\u0027 width=\u002740\u0027 height=\u002750\u0027/\u003e\u003crect x=\u0027250\u0027 y=\u0027180\u0027 width=\u002740\u0027 height=\u002750\u0027/\u003e\u003crect x=\u0027490\u0027 y=\u0027140\u0027 width=\u002740\u0027 height=\u002750\u0027/\u003e\u003crect x=\u0027560\u0027 y=\u0027140\u0027 width=\u002740\u0027 height=\u002750\u0027/\u003e\u003crect x=\u0027630\u0027 y=\u0027140\u0027 width=\u002740\u0027 height=\u002750\u0027/\u003e\u003c/g\u003e\u003cpath d=\u0027M350,500 C370,420 380,320 390,220 C400,200 420,200 430,230 C420,330 425,430 450,500 Z\u0027 fill=\u0027url(%23gradPlant)\u0027/\u003e\u003ccircle cx=\u0027410\u0027 cy=\u0027190\u0027 r=\u002725\u0027 fill=\u0027%23facc15\u0027 stroke=\u0027%23ca8a04\u0027 stroke-width=\u00273\u0027/\u003e\u003cpath d=\u0027M370,280 C320,260 300,320 350,330 Z\u0027 fill=\u0027%2322c55e\u0027/\u003e\u003cpath d=\u0027M440,310 C500,290 510,360 450,370 Z\u0027 fill=\u0027%2322c55e\u0027/\u003e\u003ctext x=\u0027400\u0027 y=\u0027560\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002724\u0027 font-weight=\u0027bold\u0027 fill=\u0027%2394a3b8\u0027 text-anchor=\u0027middle\u0027\u003eMIXED MEDIA COLLAGE \u0026bull; NATURE IN URBAN VOID\u003c/text\u003e\u003c/svg\u003e",
-        "createdAt":  "2026-10-10T14:20:00.000Z",
-        "likes":  9,
-        "comments":  [
-                         {
-                             "id":  "c4",
-                             "studentName":  "강서준",
-                             "content":  "콘크리트 질감 표현이랑 노란 꽃의 조화가 감동적이에요.",
-                             "createdAt":  "2026-10-10T14:50:00.000Z"
-                         }
-                     ],
-        "evaluation":  "‘도시의 틈, 초록의 숨결’이라는 작품을 통해 도시화와 자연의 공존이라는 환경적 가치를 미학적으로 탐색함. 차가운 무채색의 콘크리트 빌딩과 생명력을 지닌 유기적 형태의 식물을 극적으로 대비시켜 시각적 긴장감과 상징성을 동시에 확보함. 폐종이와 한지를 활용한 콜라주 기법으로 촉각적 마티에르를 창의적으로 구현하였으며, 일상에서 예술적 영감을 포착하는 관찰력과 환경 생태적 감수성이 돋보임.",
-        "evaluationBytes":  471,
-        "evaluationStyle":  "주제의식 및 생태적 감수성 중심"
-    },
-    {
-        "id":  "post-201",
-        "classId":  "1-2",
-        "studentId":  "10203",
-        "studentName":  "정우진",
-        "title":  "기억의 파편과 공간의 재구성",
-        "description":  "어린 시절 살았던 시골집 마당의 기억을 입체주의(Cubism)적인 다시점 공간 분할 기법으로 해체하여 재조합했습니다. 따뜻한 노을빛 주황색과 아침 이슬의 푸른빛을 기하학적 도형 안에 교차시켜 배치함으로써 하나의 캔버스 위에 여러 시간대의 기억이 공존하도록 유도했습니다.",
-        "imageUrl":  "data:image/svg+xml;utf8,\u003csvg xmlns=\u0027http://www.w3.org/2000/svg\u0027 viewBox=\u00270 0 800 600\u0027 width=\u0027800\u0027 height=\u0027600\u0027\u003e\u003crect width=\u0027800\u0027 height=\u0027600\u0027 fill=\u0027%230f172a\u0027/\u003e\u003cpolygon points=\u0027100,100 400,80 320,350 80,300\u0027 fill=\u0027%23f97316\u0027 opacity=\u00270.85\u0027/\u003e\u003cpolygon points=\u0027400,80 700,120 620,380 320,350\u0027 fill=\u0027%230284c7\u0027 opacity=\u00270.85\u0027/\u003e\u003cpolygon points=\u002780,300 320,350 250,550 50,500\u0027 fill=\u0027%23eab308\u0027 opacity=\u00270.85\u0027/\u003e\u003cpolygon points=\u0027320,350 620,380 580,540 250,550\u0027 fill=\u0027%236366f1\u0027 opacity=\u00270.85\u0027/\u003e\u003cpolygon points=\u0027620,380 750,250 720,480 580,540\u0027 fill=\u0027%23ec4899\u0027 opacity=\u00270.85\u0027/\u003e\u003ccircle cx=\u0027320\u0027 cy=\u0027350\u0027 r=\u002730\u0027 fill=\u0027%23ffffff\u0027 opacity=\u00270.9\u0027/\u003e\u003cline x1=\u0027100\u0027 y1=\u0027100\u0027 x2=\u0027620\u0027 y2=\u0027380\u0027 stroke=\u0027%23ffffff\u0027 stroke-width=\u00272\u0027 stroke-dasharray=\u00276,6\u0027/\u003e\u003ctext x=\u0027400\u0027 y=\u0027575\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002722\u0027 font-weight=\u0027bold\u0027 fill=\u0027%23cbd5e1\u0027 text-anchor=\u0027middle\u0027\u003eCUBIST SPATIAL DECONSTRUCTION \u0026bull; ACRYLIC\u003c/text\u003e\u003c/svg\u003e",
-        "createdAt":  "2026-10-11T09:30:00.000Z",
-        "likes":  8,
-        "comments":  [
-
-                     ],
-        "evaluation":  "‘기억의 파편과 공간의 재구성’을 주제로 입체파의 다시점 원리와 면 분할 기법을 창의적으로 재해석하여 완성함. 시간의 흐름에 따른 상이한 기억들을 기하학적 다각형 구조 안에 공존시키고, 난색과 한색의 조화로운 교차 배치를 통해 정서적 깊이감을 효과적으로 부여함. 평면 회화 안에서 다차원적 시공간을 능동적으로 설계하는 공간 지각 능력과 조형적 실험 정신이 탁월함.",
-        "evaluationBytes":  456,
-        "evaluationStyle":  "조형 요소 및 공간 구성 중심"
-    }
+[
+  {
+    "id": "post-201",
+    "classId": "1-1",
+    "categoryId": "cat-character",
+    "categoryName": "우리학교 캐릭터 디자인 하기",
+    "studentId": "10102",
+    "studentName": "강서준",
+    "title": "우리학교 수호요정 ‘솔찬이’",
+    "description": "교목인 푸른 소나무와 솔방울의 조형적 특징을 분석하여 학교의 전통과 학생들의 활기찬 기상을 친근한 요정 형태로 캐릭터화했습니다. 솔방울의 기하학적 나선 구조를 헤어스타일로 단순화하고, 교복 넥타이 색상인 짙은 녹색과 황금색을 배색하여 시각적 통일감과 학교의 상징성을 높였습니다. 스티커나 교내 굿즈로 활용될 수 있도록 2등신 비례와 뚜렷한 외곽선으로 완성했습니다.",
+    "imageUrl": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600' width='800' height='600'><defs><linearGradient id='cbg' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23e0e7ff'/><stop offset='100%' stop-color='%23fae8ff'/></linearGradient></defs><rect width='800' height='600' fill='url(%23cbg)'/><circle cx='400' cy='320' r='160' fill='%23bbf7d0' stroke='%2315803d' stroke-width='6'/><path d='M300,240 C340,140 460,140 500,240 C520,180 570,220 540,280 C570,320 530,380 480,380 C470,440 330,440 320,380 C270,380 230,320 260,280 C230,220 280,180 300,240 Z' fill='%2316a34a' stroke='%2314532d' stroke-width='6'/><circle cx='350' cy='310' r='18' fill='%230f172a'/><circle cx='450' cy='310' r='18' fill='%230f172a'/><circle cx='356' cy='304' r='6' fill='%23ffffff'/><circle cx='456' cy='304' r='6' fill='%23ffffff'/><ellipse cx='325' cy='340' rx='14' ry='8' fill='%23f87171' opacity='0.7'/><ellipse cx='475' cy='340' rx='14' ry='8' fill='%23f87171' opacity='0.7'/><path d='M380,350 Q400,380 420,350' stroke='%230f172a' stroke-width='6' fill='none' stroke-linecap='round'/><path d='M370,460 L430,460 L440,540 L360,540 Z' fill='%231e3a8a'/><polygon points='400,460 380,510 400,530 420,510' fill='%23eab308'/><text x='400' y='110' font-family='sans-serif' font-size='28' font-weight='900' fill='%231e1b4b' text-anchor='middle'>SCHOOL CHARACTER DESIGN &bull; SOL-CHAN</text></svg>",
+    "createdAt": "2026-10-10T10:15:00.000Z",
+    "likes": 18,
+    "comments": [
+      { "id": "c1", "studentName": "김민서", "content": "솔방울 머리 디테일이 너무 귀엽고 학교 상징이 잘 드러나!", "createdAt": "2026-10-10T10:30:00.000Z" }
+    ],
+    "evaluation": "‘우리학교 캐릭터 디자인 하기’ 단원에서 교목인 소나무의 솔방울 조형미를 독창적으로 단순화하여 학교의 정체성을 담은 친근한 캐릭터 ‘솔찬이’를 디자인함. 캐릭터의 비례 체계와 외곽선 두께를 정교하게 조율하여 시각적 가독성과 응용 가능성을 극대화하였으며, 학교의 상징색(녹색, 황금색)을 조화롭게 배색하는 색채 감각이 돋보임. 시각 디자인의 공공적 소통 가치를 깊이 있게 이해하고 자신의 창의적 아이디어를 완성도 높은 디자인 결과물로 발전시키는 능력이 탁월함.",
+    "evaluationBytes": 483,
+    "evaluationStyle": "창의적 발상 및 캐릭터 조형 중심"
+  },
+  {
+    "id": "post-202",
+    "classId": "1-3",
+    "categoryId": "cat-frame",
+    "categoryName": "프레임으로 본 풍경",
+    "studentId": "10307",
+    "studentName": "김민서",
+    "title": "도서관 창틀 너머 마주한 황혼",
+    "description": "야간 자율학습 전 도서관의 묵직한 목재 아치형 창틀을 프레임 삼아, 붉게 타오르며 지는 노을과 운동장의 푸른 그림자를 한 화면에 담았습니다. 창틀의 어두운 실루엣과 바깥 노을빛의 강렬한 명도 대비를 강조하여, 일상적인 학교 공간이 프레이밍을 통해 얼마나 신비로운 예술적 공간으로 변모할 수 있는지를 아크릴 물감의 그러데이션 기법으로 표현했습니다.",
+    "imageUrl": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600' width='800' height='600'><defs><linearGradient id='sunset' x1='0%' y1='0%' x2='0%' y2='100%'><stop offset='0%' stop-color='%23312e81'/><stop offset='30%' stop-color='%23c026d3'/><stop offset='70%' stop-color='%23f97316'/><stop offset='100%' stop-color='%23fef08a'/></linearGradient></defs><rect width='800' height='600' fill='%230f172a'/><rect x='150' y='80' width='500' height='460' rx='250' ry='250' fill='url(%23sunset)'/><path d='M150,420 Q400,380 650,440 L650,540 L150,540 Z' fill='%231e293b' opacity='0.9'/><path d='M0,0 L800,0 L800,600 L0,600 Z M150,80 Q400,0 650,80 L650,540 L150,540 Z' fill='%231c1917'/><line x1='400' y1='20' x2='400' y2='540' stroke='%23292524' stroke-width='16'/><line x1='150' y1='300' x2='650' y2='300' stroke='%23292524' stroke-width='16'/><circle cx='480' cy='220' r='35' fill='%23ffffff' opacity='0.85'/><text x='400' y='580' font-family='sans-serif' font-size='22' font-weight='bold' fill='%23cbd5e1' text-anchor='middle'>FRAMED LANDSCAPE &bull; ACRYLIC ON CANVAS</text></svg>",
+    "createdAt": "2026-10-10T14:20:00.000Z",
+    "likes": 21,
+    "comments": [
+      { "id": "c2", "studentName": "박지후", "content": "창틀 너머로 보이는 노을 그러데이션이 정말 환상적이야!", "createdAt": "2026-10-10T14:40:00.000Z" }
+    ],
+    "evaluation": "‘프레임으로 본 풍경’ 수업에서 도서관 아치형 창틀이라는 시각적 매개체를 효과적인 프레이밍 도구로 활용하여 주변 풍경을 신선한 조형적 시각으로 재발견함. 묵직한 실루엣의 창틀과 극적인 황혼의 노을빛 사이의 명암 대비를 아크릴 그러데이션 기법으로 능숙하게 연출하여 깊이 있는 공간감과 서정적 분위기를 구축함. 익숙한 학교 공간에서 미적 가치를 포착하고 관람자의 시선을 프레임 중심으로 집중시키는 화면 구성 능력이 매우 우수함.",
+    "evaluationBytes": 472,
+    "evaluationStyle": "공간 구성 및 회화 기법 중심"
+  },
+  {
+    "id": "post-203",
+    "classId": "1-5",
+    "categoryId": "cat-eco",
+    "categoryName": "생태미술 프로젝트",
+    "studentId": "10515",
+    "studentName": "박지후",
+    "title": "콘크리트 틈, 업사이클링 생명목",
+    "description": "교내 화단에서 수거한 마른 낙엽, 나뭇가지와 급식실에서 버려질 뻔한 종이 골판지를 수합하여 콘크리트 벽면을 뚫고 솟아나는 생명나무를 입체 콜라주로 제작했습니다. 산업 부산물과 자연물의 이질적 질감을 공존시킴으로써 기후 위기 시대에 인간과 생태계가 나아가야 할 회복적 연대와 생명 존중의 메시지를 담고자 했습니다.",
+    "imageUrl": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600' width='800' height='600'><defs><linearGradient id='ecobg' x1='0%' y1='0%' x2='100%' y2='0%'><stop offset='0%' stop-color='%23334155'/><stop offset='100%' stop-color='%231e293b'/></linearGradient></defs><rect width='800' height='600' fill='url(%23ecobg)'/><path d='M400,600 C370,420 340,320 280,220 C340,250 400,280 430,140 C440,240 520,260 560,200 C500,280 460,380 440,600 Z' fill='%2378350f' stroke='%23451a03' stroke-width='5'/><circle cx='280' cy='200' r='35' fill='%2315803d'/><circle cx='340' cy='160' r='45' fill='%2322c55e'/><circle cx='430' cy='120' r='50' fill='%234ade80'/><circle cx='510' cy='150' r='40' fill='%2316a34a'/><circle cx='570' cy='190' r='35' fill='%2386efac'/><g opacity='0.3' stroke='%23ffffff' stroke-width='2'><line x1='100' y1='400' x2='300' y2='450'/><line x1='500' y1='480' x2='700' y2='420'/></g><text x='400' y='560' font-family='sans-serif' font-size='22' font-weight='bold' fill='%2394a3b8' text-anchor='middle'>ECO-ART PROJECT &bull; UPCYCLED LIFE TREE</text></svg>",
+    "createdAt": "2026-10-10T16:10:00.000Z",
+    "likes": 14,
+    "comments": [],
+    "evaluation": "‘생태미술 프로젝트’를 통해 버려진 종이 골판지와 자연물을 결합한 업사이클링 혼합 매체 콜라주를 창작함. 인공물과 자연 재료의 촉각적 마티에르 대비를 통해 현대 산업사회 속 생태계 회복이라는 시의성 있는 환경적 주제 의식을 설득력 있게 전달함. 재료의 물질성을 탐구하고 예술 활동을 통해 환경 윤리적 메시지를 사회적으로 발신하는 성숙한 시민 의식과 생태적 감수성이 돋보임.",
+    "evaluationBytes": 454,
+    "evaluationStyle": "주제의식 및 생태적 감수성 중심"
+  },
+  {
+    "id": "post-204",
+    "classId": "1-7",
+    "categoryId": "cat-portrait",
+    "categoryName": "상징으로 그리는 자화상",
+    "studentId": "10704",
+    "studentName": "이채원",
+    "title": "내면의 프리즘과 상징의 자화상",
+    "description": "타인의 평가에 쉽게 흔들리는 사춘기의 불안정한 내면과 그 이면에 존재하는 무한한 꿈의 스펙트럼을 프리즘과 유리 파편의 메타포로 형상화했습니다. 얼굴의 이목구비를 사실적으로 그리는 대신, 반투명한 기하학적 색면 분할과 푸른색에서 분홍색으로 번져나가는 색채 대비를 통해 진정한 자아를 발견해 나가는 과정의 역동적인 심리를 담았습니다.",
+    "imageUrl": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600' width='800' height='600'><rect width='800' height='600' fill='%230f172a'/><polygon points='400,100 200,450 600,450' fill='none' stroke='%2338bdf8' stroke-width='5'/><polygon points='400,100 300,450 400,450' fill='%236366f1' opacity='0.7'/><polygon points='400,100 400,450 500,450' fill='%23ec4899' opacity='0.7'/><polygon points='400,100 200,450 300,450' fill='%233b82f6' opacity='0.7'/><circle cx='400' cy='280' r='60' fill='%23ffffff' opacity='0.9'/><line x1='100' y1='250' x2='350' y2='250' stroke='%23ffffff' stroke-width='6'/><text x='400' y='540' font-family='sans-serif' font-size='24' font-weight='bold' fill='%23cbd5e1' text-anchor='middle'>SYMBOLIC SELF-PORTRAIT &bull; INNER PRISM</text></svg>",
+    "createdAt": "2026-10-11T11:30:00.000Z",
+    "likes": 16,
+    "comments": [],
+    "evaluation": "‘상징으로 그리는 자화상’ 단원에서 외형적 모사를 지양하고 프리즘과 색면 분할의 상징적 메타포를 통해 청소년기 정체성의 탐색 과정을 창의적으로 시각화함. 푸른색과 분홍색의 감각적인 대비 및 기하학적 면 분할을 통해 내면의 복합적 감정을 정제된 조형 언어로 승화시킴. 자아 성찰적 태도로 작업에 몰입하여 자신만의 고유한 심리적 풍경을 완성도 높게 구축한 뛰어난 미적 표현력이 돋보임.",
+    "evaluationBytes": 451,
+    "evaluationStyle": "미적 감수성 및 내면 성찰 중심"
+  },
+  {
+    "id": "post-205",
+    "classId": "1-9",
+    "categoryId": "cat-character",
+    "categoryName": "우리학교 캐릭터 디자인 하기",
+    "studentId": "10911",
+    "studentName": "정우진",
+    "title": "전통과 열정의 마스코트 ‘호람이’",
+    "description": "우리 학교의 진취적 기상을 상징하는 호랑이를 현대적이고 역동적인 스트리트 아트 그래픽 스타일로 재해석했습니다. 단청의 오방색(청, 적, 황, 백, 흑)을 캐릭터의 유니폼과 헤어밴드에 현대적으로 매치하여 전통문화와 청소년의 스포티한 에너지를 결합했습니다. 교내 체육대회 플래카드 및 디지털 인스타툰에 즉시 적용 가능한 완성도를 지향했습니다.",
+    "imageUrl": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600' width='800' height='600'><rect width='800' height='600' fill='%2318181b'/><polygon points='250,220 280,120 350,190' fill='%23f97316' stroke='%23ea580c' stroke-width='5'/><polygon points='550,220 520,120 450,190' fill='%23f97316' stroke='%23ea580c' stroke-width='5'/><circle cx='400' cy='320' r='150' fill='%23f97316' stroke='%23ea580c' stroke-width='6'/><path d='M360,220 L400,260 L440,220' stroke='%230f172a' stroke-width='8' fill='none'/><circle cx='340' cy='300' r='18' fill='%230f172a'/><circle cx='460' cy='300' r='18' fill='%230f172a'/><polygon points='400,340 380,360 420,360' fill='%230f172a'/><path d='M380,380 Q400,400 420,380' stroke='%230f172a' stroke-width='5' fill='none'/><rect x='280' y='210' width='240' height='30' rx='10' fill='%23dc2626'/><text x='400' y='540' font-family='sans-serif' font-size='26' font-weight='bold' fill='%23fef08a' text-anchor='middle'>SCHOOL MASCOT &bull; TIGER HORAM</text></svg>",
+    "createdAt": "2026-10-11T13:40:00.000Z",
+    "likes": 25,
+    "comments": [],
+    "evaluation": "‘우리학교 캐릭터 디자인 하기’ 과제에서 전통 호랑이 이미지와 단청의 오방색 원리를 현대적인 그래픽 디자인 기법으로 재해석하여 학교 마스코트 ‘호람이’를 창작함. 전통문화의 시각적 모티브를 현대 청소년 문화와 융합하는 창의·융합 발상 능력이 탁월하며, 굵고 선명한 외곽선과 과감한 원색 대비를 구사하여 높은 시각적 주목성과 응용성을 확보함. 학교 구성원의 소속감과 자긍심을 고취하는 디자인의 사회적 소통 기능에 대한 깊은 이해가 돋보임.",
+    "evaluationBytes": 476,
+    "evaluationStyle": "창의 융합 및 시각 디자인 중심"
+  }
 ]

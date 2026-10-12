@@ -6,7 +6,9 @@
 // Global State
 const state = {
   classes: [],
+  categories: [],
   currentClassId: '1-1',
+  currentCategoryId: 'all',
   posts: [],
   currentUser: {
     studentId: '',
@@ -26,6 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   loadSavedUser();
   await checkServerStatus();
   await loadClasses();
+  await loadCategories();
   await loadPosts();
   
   initURLParams();
@@ -49,12 +52,16 @@ function saveStudentUser(studentId, studentName) {
   localStorage.setItem('artboard_student_user', JSON.stringify(state.currentUser));
 }
 
-// Parse URL Parameters (e.g. ?class=1-2 or ?admin=true)
+// Parse URL Parameters (e.g. ?class=1-3 or ?category=cat-character)
 function initURLParams() {
   const params = new URLSearchParams(window.location.search);
   const classParam = params.get('class');
   if (classParam && state.classes.some(c => c.id === classParam)) {
     state.currentClassId = classParam;
+  }
+  const catParam = params.get('category');
+  if (catParam && (catParam === 'all' || state.categories.some(c => c.id === catParam))) {
+    state.currentCategoryId = catParam;
   }
   if (params.get('admin') === '1') {
     promptAdminLogin();
@@ -72,9 +79,7 @@ async function checkServerStatus() {
       console.log('Connected to ArtBoard local server:', data);
       return;
     }
-  } catch (e) {
-    // Running offline / file protocol / without server
-  }
+  } catch (e) {}
   state.isOnline = false;
   state.serverInfo = {
     ip: window.location.hostname || 'localhost',
@@ -82,7 +87,7 @@ async function checkServerStatus() {
   };
 }
 
-// Load Classes
+// Load Classes (1반, 3반, 5반, 7반, 9반)
 async function loadClasses() {
   if (state.isOnline) {
     try {
@@ -95,23 +100,81 @@ async function loadClasses() {
     } catch (e) {}
   }
 
-  // Fallback to cache or defaults
   const cached = localStorage.getItem('artboard_classes_cache');
   if (cached) {
     try {
-      state.classes = JSON.parse(cached);
+      const parsed = JSON.parse(cached);
+      if (parsed.some(c => c.id === '1-3' || c.id === '1-5')) {
+        state.classes = parsed;
+        return;
+      }
+    } catch (e) {}
+  }
+
+  // Default: 1반, 3반, 5반, 7반, 9반
+  state.classes = [
+    { id: '1-1', name: '1학년 1반', description: '2026학년도 고등 미술 수업 - 창작 갤러리' },
+    { id: '1-3', name: '1학년 3반', description: '2026학년도 고등 미술 수업 - 창작 갤러리' },
+    { id: '1-5', name: '1학년 5반', description: '2026학년도 고등 미술 수업 - 창작 갤러리' },
+    { id: '1-7', name: '1학년 7반', description: '2026학년도 고등 미술 수업 - 창작 갤러리' },
+    { id: '1-9', name: '1학년 9반', description: '2026학년도 고등 미술 수업 - 창작 갤러리' }
+  ];
+  localStorage.setItem('artboard_classes_cache', JSON.stringify(state.classes));
+}
+
+// Load Curriculum Categories
+async function loadCategories() {
+  if (state.isOnline) {
+    try {
+      const res = await fetch('/api/categories');
+      if (res.ok) {
+        state.categories = await res.json();
+        localStorage.setItem('artboard_categories_cache', JSON.stringify(state.categories));
+        return;
+      }
+    } catch (e) {}
+  }
+
+  const cached = localStorage.getItem('artboard_categories_cache');
+  if (cached) {
+    try {
+      state.categories = JSON.parse(cached);
       return;
     } catch (e) {}
   }
 
-  // Default Classes
-  state.classes = [
-    { id: '1-1', name: '1학년 1반', description: '2026학년도 1학기 고등 미술 - 회화 및 현대 미술 표현' },
-    { id: '1-2', name: '1학년 2반', description: '2026학년도 1학기 고등 미술 - 조형 요소와 시각 문화 탐구' },
-    { id: '1-3', name: '1학년 3반', description: '2026학년도 1학기 고등 미술 - 창의적 발상과 현대 미술 창작' },
-    { id: '1-4', name: '1학년 4반', description: '2026학년도 1학기 고등 미술 - 자아 탐색 및 사회 비평 미술' }
+  // 4 Core Project Categories
+  state.categories = [
+    {
+      id: 'cat-character',
+      name: '우리학교 캐릭터 디자인 하기',
+      icon: '🎨',
+      badgeColor: 'bg-indigo-50 text-indigo-700 border-indigo-200',
+      description: '학교 상징(교목, 교화, 교가 등)과 정체성을 재해석한 캐릭터 디자인'
+    },
+    {
+      id: 'cat-frame',
+      name: '프레임으로 본 풍경',
+      icon: '🖼️',
+      badgeColor: 'bg-sky-50 text-sky-700 border-sky-200',
+      description: '시각적 프레이밍 기법을 통해 포착한 주변 풍경과 공간의 미적 가치'
+    },
+    {
+      id: 'cat-eco',
+      name: '생태미술 프로젝트',
+      icon: '🌿',
+      badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+      description: '자연물과 업사이클링 소재를 활용한 생태적 공존과 환경 윤리 미술'
+    },
+    {
+      id: 'cat-portrait',
+      name: '상징으로 그리는 자화상',
+      icon: '🎭',
+      badgeColor: 'bg-violet-50 text-violet-700 border-violet-200',
+      description: '상징적 메타포와 조형 요소를 통해 내면과 정체성을 탐색한 자화상'
+    }
   ];
-  localStorage.setItem('artboard_classes_cache', JSON.stringify(state.classes));
+  localStorage.setItem('artboard_categories_cache', JSON.stringify(state.categories));
 }
 
 // Load Posts
@@ -127,7 +190,6 @@ async function loadPosts() {
     } catch (e) {}
   }
 
-  // Fallback to cache
   const cached = localStorage.getItem('artboard_posts_cache');
   if (cached) {
     try {
@@ -136,7 +198,6 @@ async function loadPosts() {
     } catch (e) {}
   }
 
-  // If completely empty, load fallback sample data
   state.posts = [];
 }
 
@@ -165,7 +226,6 @@ async function createPost(postData) {
     }
   }
 
-  // Local fallback
   const newPost = {
     ...postData,
     id: 'post-' + Date.now().toString(36) + Math.random().toString(36).substr(2, 5),
@@ -262,9 +322,6 @@ async function addComment(id, text) {
 // (과목별 세부능력 및 특기사항 전문 분석 알고리즘)
 // ==========================================
 
-/**
- * Calculates NEIS bytes (Korean: 3 bytes, ASCII/space: 1 byte, CRLF: 2 bytes)
- */
 function calculateNEISBytes(text) {
   if (!text) return 0;
   let bytes = 0;
@@ -281,139 +338,105 @@ function calculateNEISBytes(text) {
   return bytes;
 }
 
-/**
- * Intelligent Keyword & Linguistic Analyzer for Art Curriculum
- */
-function analyzeArtworkContent(title, description) {
+function analyzeArtworkContent(title, description, categoryId) {
   const text = (title + ' ' + description).toLowerCase();
 
-  // 1. Technique & Formal Elements (조형 요소 및 표현 기법)
+  // Formal elements & techniques
   const techniqueKeywords = [
-    { match: /수채화|물맛|번짐|투명/, tag: '수채화의 투명한 물맛과 유기적 번짐 기법', cat: '수채' },
-    { match: /아크릴|두터운|마티에르|임파스토|덧칠/, tag: '아크릴 물감의 밀도 높은 마티에르와 강렬한 붓터치', cat: '아크릴' },
-    { match: /펜|소묘|드로잉|해칭|선묘|선/, tag: '정밀한 펜선과 밀도 높은 해칭(hatching) 선묘 기법', cat: '소묘/선' },
-    { match: /콜라주|오브제|한지|종이|붙인|재료/, tag: '이질적 재료의 물성을 융합한 독창적 콜라주(collage) 기법', cat: '혼합재료' },
-    { match: /디지털|태블릿|그래픽|벡터/, tag: '디지털 툴을 활용한 정교한 레이어 구성과 시각 효과', cat: '디지털' },
-    { match: /명암|빛|그림자|대비|어둠|밝/, tag: '빛과 그림자의 명확한 명암 대비(Chiaroscuro)를 통한 입체감', cat: '명암' },
-    { match: /색채|그라데이션|보색|원색|색감|파스텔|한색|난색/, tag: '감정 상태를 시각화한 감각적인 색채 조화와 보색 대비', cat: '색채' },
-    { match: /구도|원근|공간|대칭|비대칭|입체|분할/, tag: '시선의 흐름을 유도하는 역동적인 화면 구도와 공간 분할', cat: '구도' },
-    { match: /초현실|왜곡|변형|상징|추상/, tag: '사물의 형태 왜곡과 상징적 오브제 배치를 통한 초현실적 조형성', cat: '추상/초현실' }
+    { match: /수채화|물맛|번짐|투명/, tag: '수채화의 투명한 물맛과 유기적 번짐 기법' },
+    { match: /아크릴|두터운|마티에르|임파스토|덧칠/, tag: '아크릴 물감의 밀도 높은 마티에르와 과감한 붓터치' },
+    { match: /펜|소묘|드로잉|해칭|선묘|선/, tag: '정밀한 펜선과 밀도 높은 해칭(hatching) 선묘 기법' },
+    { match: /콜라주|오브제|한지|종이|붙인|재료|낙엽/, tag: '이질적 재료의 물성을 융합한 독창적 콜라주(collage) 기법' },
+    { match: /디지털|태블릿|그래픽|벡터|단순화/, tag: '디지털 툴을 활용한 정교한 형태 단순화와 선명한 벡터 조형' },
+    { match: /명암|빛|그림자|대비|어둠|밝/, tag: '빛과 그림자의 명확한 명암 대비(Chiaroscuro)를 통한 입체감' },
+    { match: /색채|그라데이션|보색|원색|색감|파스텔|한색|난색/, tag: '감정 상태를 시각화한 감각적인 색채 조화와 보색 대비' },
+    { match: /구도|원근|공간|대칭|비대칭|입체|분할|아치/, tag: '시선의 흐름을 유도하는 역동적인 화면 구도와 공간 분할' },
+    { match: /초현실|왜곡|변형|상징|추상|프리즘/, tag: '사물의 형태 왜곡과 상징적 오브제 배치를 통한 메타포적 조형성' }
   ];
 
-  // 2. Theme & Intent (주제 의식 및 발상 동기)
-  const themeKeywords = [
-    { match: /시간|기억|순간|과거|현재|시계/, theme: '시간의 비가역성과 개인적 기억의 파편화', intent: '흘러가는 시간에 대한 철학적 성찰' },
-    { match: /자아|내면|고민|정체성|가면|얼굴|자화상|감정/, theme: '청소년기 내면의 복합적 감정과 정체성 탐구', intent: '사회적 시선 속에서 진정한 자아를 발견하고자 하는 내적 탐색' },
-    { match: /도시|빌딩|현대|속도|경쟁|스마트폰|기술/, theme: '현대 문명과 디지털 사회 속 인간 소외 현상', intent: '삭막한 현대 사회에 대한 비판적 통찰과 인간성 회복' },
-    { match: /자연|환경|생명|꽃|바다|생태|오염/, theme: '생명력의 경이로움과 자연 생태에 대한 존중', intent: '도시와 자연의 공존을 모색하는 생태학적 감수성' },
-    { match: /관계|연결|소통|친구|가족|외로움|고독/, theme: '타인과의 관계 맺기 및 진정한 시각적 소통', intent: '고독 속에서 연대와 따뜻한 공감을 추구하는 의지' },
-    { match: /꿈|희망|미래|비상|빛/, theme: '이상향을 향한 열정과 미래에 대한 희망', intent: '어려움을 극복하고 성장하려는 긍정적 에너지' }
-  ];
-
-  // Matched elements
   const matchedTechniques = techniqueKeywords.filter(k => k.match.test(text)).map(k => k.tag);
-  const matchedTheme = themeKeywords.find(k => k.match.test(text)) || {
-    theme: '일상적 경험 속에서 발견한 예술적 영감과 개성적 조형성',
-    intent: '자신만의 독창적인 시각 언어로 주제를 형상화하려는 탐구'
-  };
-
   const primaryTech = matchedTechniques.length > 0 ? matchedTechniques[0] : '주제에 부합하는 조형 요소(형, 색, 질감)의 유기적 배치와 기법적 완성도';
   const secondaryTech = matchedTechniques.length > 1 ? matchedTechniques[1] : '화면 전체의 균형과 시각적 조화를 고려한 섬세한 표현력';
 
-  return {
-    matchedTheme,
-    primaryTech,
-    secondaryTech,
-    hasMultipleTechs: matchedTechniques.length > 1
-  };
+  return { primaryTech, secondaryTech };
 }
 
 /**
- * Generate Professional High School Art Record (세특) Text
+ * Generate Curriculum-Aligned Se-teuk Text
  */
 function generateSeTeukText(post, style = 'balanced') {
-  const { title, description } = post;
-  const analysis = analyzeArtworkContent(title, description);
+  const { title, description, categoryId, categoryName } = post;
+  const cleanTitle = (title || '창작 작품').trim();
+  const analysis = analyzeArtworkContent(title, description, categoryId);
+  const { primaryTech, secondaryTech } = analysis;
 
-  const cleanTitle = (title || '자유 창작 작품').trim();
-  const theme = analysis.matchedTheme.theme;
-  const intent = analysis.matchedTheme.intent;
-  const tech1 = analysis.primaryTech;
-  const tech2 = analysis.secondaryTech;
+  let sentence1 = '';
+  let sentence2 = '';
+  let sentence3 = '';
+  let sentence4 = '';
 
-  let sentence1 = ''; // 발상 및 주제
-  let sentence2 = ''; // 조형 요소 및 기법
-  let sentence3 = ''; // 시각 소통 및 메시지
-  let sentence4 = ''; // 태도 및 발전 가능성
-
-  switch (style) {
-    case 'technique': // 표현기법 및 조형미 중심
-      sentence1 = `‘${cleanTitle}’ 창작 활동에서 ${intent}을 조형적으로 구현하고자 명확한 표현 계획을 수립함.`;
-      sentence2 = `${tech1}를 능숙하게 구사하고, ${tech2}를 바탕으로 완성도 높은 화면 밀도를 구축함.`;
-      sentence3 = `재료의 물리적 특성을 효과적으로 실험하여 대상의 양감과 시각적 텍스처를 생동감 있게 살려내는 테크닉이 매우 뛰어남.`;
-      sentence4 = `작업 과정에서 조형 원리의 균형과 조화를 집요하게 탐구하며 자신의 미적 기준을 확립해 나가는 전문적 실기 역량이 돋보임.`;
-      break;
-
-    case 'creativity': // 창의적 발상 및 독창성 중심
-      sentence1 = `‘${cleanTitle}’을 주제로 기존의 정형화된 시각틀에서 벗어나 ${theme}을 참신한 시각으로 재해석함.`;
-      sentence2 = `${intent}을 상징적 메타포로 치환하고, ${tech1}를 창의적으로 접목하여 독창적인 예술 세계를 구축함.`;
-      sentence3 = `다양한 조형적 실험을 두려워하지 않고 관습적인 구도를 탈피하여 관람자에게 신선한 시각적 충격과 흥미를 유발함.`;
-      sentence4 = `자신의 고유한 예술적 개성을 당당하게 표현하며 문제해결 과정에서 발휘된 유연한 발상과 남다른 창의 융합 능력이 돋보임.`;
-      break;
-
-    case 'message': // 주제의식 및 비평적 시각 중심
-      sentence1 = `‘${cleanTitle}’이라는 작품을 통해 ${theme}이라는 동시대적 문제의식을 심도 있게 탐색함.`;
-      sentence2 = `${tech1}를 전략적으로 활용하여 전하고자 하는 메시지의 설득력과 사회·문화적 의미를 극대화함.`;
-      sentence3 = `작품 속 상징적 이미지들의 조화로운 배치를 통해 관람자와 능동적으로 교감하는 뛰어난 시각 소통 능력을 발휘함.`;
-      sentence4 = `예술을 개인적 유희에 국한하지 않고 공동체적 가치와 질문을 던지는 도구로 활용할 줄 아는 비판적 사고력과 지적 성숙도가 돋보임.`;
-      break;
-
-    case 'sensitivity': // 미적 감수성 및 내면 성찰 중심
-      sentence1 = `‘${cleanTitle}’을 제작하며 ${intent}을 진솔하게 응시하고 자신의 정서를 섬세한 미적 언어로 승화시킴.`;
-      sentence2 = `${tech1}와 정제된 색채 운용을 통해 내면의 미묘한 감정 변화를 따뜻하고 감각적인 시각 이미지로 형상화함.`;
-      sentence3 = `작품에 담긴 서정적 분위기와 진정성 있는 작가 노트는 보는 이로 하여금 깊은 정서적 공감과 울림을 자아냄.`;
-      sentence4 = `자기 성찰적 태도로 창작에 몰입하며 주변 세계와 따뜻하게 호흡하는 순수한 예술적 감수성과 풍부한 공감 능력이 돋보임.`;
-      break;
-
-    case 'balanced': // 균형 종합형 (표준형)
-    default:
-      sentence1 = `‘${cleanTitle}’을 주제로 ${intent}을 형상화하고자 하는 뚜렷한 목적의식을 가지고 창작 활동에 능동적으로 참여함.`;
-      sentence2 = `${tech1}를 효과적으로 적용하고, ${tech2}를 조화롭게 구현하여 수준 높은 조형적 완성도를 달성함.`;
-      sentence3 = `작품의 창작 의도와 표현 기법을 논리적인 작가 노트로 정리하여 관람자와 적극적으로 교감하는 시각 소통 역량을 보여줌.`;
-      sentence4 = `제작 전 과정에서 지속적인 자기 점검과 피드백을 수용하여 작품을 발전시키는 성실함과 우수한 미술과 핵심역량이 돋보임.`;
-      break;
+  // 1. 우리학교 캐릭터 디자인 하기
+  if (categoryId === 'cat-character' || (categoryName && categoryName.includes('캐릭터'))) {
+    sentence1 = `‘우리학교 캐릭터 디자인 하기’ 단원에서 학교의 상징 요소와 전통을 다각도로 탐색하여 정체성을 담은 ‘${cleanTitle}’ 캐릭터를 창의적으로 기획함.`;
+    sentence2 = `캐릭터의 비례 체계와 형태 단순화 기법을 능숙하게 적용하고, ${primaryTech}를 바탕으로 높은 시각적 가독성과 친근감을 성공적으로 구현함.`;
+    sentence3 = `학교의 고유 색채를 감각적으로 조화시키고 교내 굿즈 및 디지털 매체 응용 가능성을 다각도로 검토하여 시각 디자인의 실용적·공공적 가치를 실현함.`;
+    sentence4 = `학교 공동체에 대한 자긍심과 소속감을 디자인으로 승화시킨 창의·융합 발상 능력과 시각 소통 역량이 매우 돋보임.`;
+  }
+  // 2. 프레임으로 본 풍경
+  else if (categoryId === 'cat-frame' || (categoryName && categoryName.includes('프레임'))) {
+    sentence1 = `‘프레임으로 본 풍경’ 수업에서 일상적인 학교 주변 풍경을 독창적인 프레이밍 기법으로 재해석한 ‘${cleanTitle}’을 창작함.`;
+    sentence2 = `프레임을 매개로 한 과감한 화면 구도 설정을 통해 시선의 집중을 유도하고, ${primaryTech}를 효과적으로 활용하여 깊이 있는 원근감과 공간감을 연출함.`;
+    sentence3 = `빛과 그림자의 변화에 따른 풍경의 미묘한 정취를 예리하게 포착하여 평범한 공간에 서정적 감수성과 조형적 긴장감을 불어넣음.`;
+    sentence4 = `주변 세계를 새로운 시각으로 관찰하고 자신만의 회화적 언어로 공간을 재구성하는 탁월한 공간 지각력과 회화 실기 역량을 발휘함.`;
+  }
+  // 3. 생태미술 프로젝트
+  else if (categoryId === 'cat-eco' || (categoryName && categoryName.includes('생태'))) {
+    sentence1 = `‘생태미술 프로젝트’에 참여하여 기후 위기와 자연 생태계의 가치를 진지하게 성찰하고 ‘${cleanTitle}’이라는 조형 작품을 완성함.`;
+    sentence2 = `자연물과 업사이클링 친환경 소재의 유기적 물성을 탐구하며, ${primaryTech}를 창의적으로 접목하여 촉각적 마티에르가 살아있는 입체적 조형미를 도출함.`;
+    sentence3 = `인공물과 자연의 대비를 통해 환경 파괴에 대한 경각심과 생명 존중의 메시지를 관람자에게 설득력 있게 전달함.`;
+    sentence4 = `예술 활동을 통해 지속 가능한 미래와 생태적 공존을 모색하는 비판적 사고력과 성숙한 환경 윤리 의식이 돋보임.`;
+  }
+  // 4. 상징으로 그리는 자화상
+  else if (categoryId === 'cat-portrait' || (categoryName && categoryName.includes('자화상'))) {
+    sentence1 = `‘상징으로 그리는 자화상’ 단원에서 단순한 외형 묘사를 탈피하여 내면의 정체성과 심리 상태를 메타포적으로 탐색한 ‘${cleanTitle}’을 완성함.`;
+    sentence2 = `자신을 대변하는 상징적 오브제 배치와 ${primaryTech}를 조화롭게 융합하여 독창적인 심리적 공간을 형성함.`;
+    sentence3 = `감정의 결을 드러내는 색채 운용과 과감한 형태 변형을 통해 복합적인 청소년기 자아의 모습을 진솔하고 세련된 조형 언어로 구체화함.`;
+    sentence4 = `깊이 있는 자기 성찰을 바탕으로 자신의 예술적 개성을 주체적으로 승화시키는 뛰어난 미적 감수성과 진정성이 돋보임.`;
+  }
+  // 기본 범용
+  else {
+    sentence1 = `‘${cleanTitle}’ 창작 활동에서 주체적인 문제의식을 바탕으로 주제를 조형적으로 형상화하는 뛰어난 발상 능력을 발휘함.`;
+    sentence2 = `${primaryTech}를 충실하게 구사하고 ${secondaryTech}를 바탕으로 높은 완성도를 도출함.`;
+    sentence3 = `작품에 담긴 작가적 메시지와 시각 소통 원리를 논리적으로 설명하며 관람자와 능동적으로 교감함.`;
+    sentence4 = `제작 전 과정에서 지속적인 피드백을 수용하여 작품을 발전시키는 성실함과 우수한 미술과 핵심역량이 돋보임.`;
   }
 
   return `${sentence1} ${sentence2} ${sentence3} ${sentence4}`;
 }
 
-/**
- * Optional Gemini API Multi-modal Call
- */
 async function generateSeTeukWithGemini(post, apiKey) {
   const prompt = `당신은 대한민국 고등학교 미술 교사입니다. 교육부 학교생활기록부 기재요령에 따라 학생의 미술 작품과 설명을 바탕으로 [과목별 세부능력 및 특기사항(세특)]을 작성해야 합니다.
 
 [작품 정보]
 - 학생 학번/성명: ${post.studentId} ${post.studentName}
+- 수업 과제 카테고리: ${post.categoryName || '미술 수업 창작'}
 - 작품 제목: ${post.title}
 - 학생 작품 설명: ${post.description}
 
 [작성 지침 - 엄격 준수]
-1. 분량: 한글 130자 ~ 180자 내외 (3~4개 완성형 문장, 공백 포함 약 400~500바이트 내외)
-2. 문체: 개조식이나 명사형 종결(~함으로 끝나는 단어 나열)을 절대 금지하고, 객관적이고 품격 있는 서술형 문장 종결('~함.', '~을 구현함.', '~능력이 뛰어남.', '~역량이 돋보임.')로 완성할 것.
+1. 분량: 한글 130자 ~ 180자 내외 (3~4개 완성형 문장, 약 400~500바이트 내외)
+2. 문체: 개조식이나 명사형 종결을 금지하고, 품격 있는 서술형 문장 종결('~함.', '~을 구현함.', '~역량이 돋보임.')로 완성할 것.
 3. 구성:
-   - 1문장: 학생의 발상 배경 및 독창적인 주제 의식
-   - 2문장: 구체적인 조형 요소와 표현 기법(색채, 구도, 명암, 질감, 재료 등)의 완성도
+   - 1문장: 과제 주제에 따른 발상 배경 및 독창적인 기획 의도
+   - 2문장: 구체적인 조형 요소와 표현 기법(색채, 구도, 재료, 단순화, 마티에르 등)의 완성도
    - 3문장: 작품에 담긴 시각 소통 및 예술적 메시지 전달력
    - 4문장: 수업 참여 태도, 탐구심 및 미술과 핵심역량 총평
-4. 오직 세특 서술문만 출력할 것 (별도의 설명, 따옴표, 마크다운 기호 없이 순수 텍스트만 출력).`;
+4. 오직 세특 서술문만 출력할 것.`;
 
   try {
     const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
     const payload = {
-      contents: [{
-        parts: [{ text: prompt }]
-      }]
+      contents: [{ parts: [{ text: prompt }] }]
     };
 
     const res = await fetch(endpoint, {
@@ -422,23 +445,15 @@ async function generateSeTeukWithGemini(post, apiKey) {
       body: JSON.stringify(payload)
     });
 
-    if (!res.ok) {
-      const errData = await res.json();
-      throw new Error(errData.error?.message || 'Gemini API 호출 실패');
-    }
-
+    if (!res.ok) throw new Error('Gemini API 응답 오류');
     const data = await res.json();
-    const candidateText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (candidateText) {
-      return candidateText.trim().replace(/^["']|["']$/g, '');
-    }
+    return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim().replace(/^["']|["']$/g, '');
   } catch (err) {
-    console.warn('Gemini API call error:', err);
+    console.warn('Gemini error:', err);
     throw err;
   }
 }
 
-// Generate Se-teuk for a single post
 async function handleGeneratePostSeTeuk(postId, style = state.seTeukStyle) {
   const post = state.posts.find(p => p.id === postId);
   if (!post) return;
@@ -446,10 +461,10 @@ async function handleGeneratePostSeTeuk(postId, style = state.seTeukStyle) {
   let text = '';
   if (state.geminiApiKey) {
     try {
-      showToast('Gemini AI가 작품을 분석하여 세특을 생성 중입니다...', 'info');
+      showToast('Gemini AI가 과제 카테고리를 분석하여 세특을 생성 중입니다...', 'info');
       text = await generateSeTeukWithGemini(post, state.geminiApiKey);
     } catch (e) {
-      showToast(`Gemini 오류: ${e.message}. 내장 엔진으로 대체합니다.`, 'warning');
+      showToast(`Gemini 오류. 내장 전용 엔진으로 세특을 생성합니다.`, 'warning');
       text = generateSeTeukText(post, style);
     }
   } else {
@@ -468,15 +483,18 @@ async function handleGeneratePostSeTeuk(postId, style = state.seTeukStyle) {
   render();
 }
 
-// Batch Generate Se-teuk for current class
 async function handleBatchGenerateSeTeuk() {
-  const targetPosts = state.posts.filter(p => state.currentClassId === 'all' || p.classId === state.currentClassId);
+  const targetPosts = state.posts.filter(p => 
+    (state.currentClassId === 'all' || p.classId === state.currentClassId) &&
+    (state.currentCategoryId === 'all' || p.categoryId === state.currentCategoryId)
+  );
+
   if (targetPosts.length === 0) {
-    alert('해당 반에 등록된 작품이 없습니다.');
+    alert('해당 조건에 등록된 작품이 없습니다.');
     return;
   }
 
-  if (!confirm(`총 ${targetPosts.length}개 작품의 세특을 일괄 자동 생성하시겠습니까? (기존 내용이 있는 경우 업데이트됩니다)`)) {
+  if (!confirm(`총 ${targetPosts.length}개 작품의 세특을 과제 카테고리 맞춤형으로 일괄 자동 생성하시겠습니까?`)) {
     return;
   }
 
@@ -508,28 +526,31 @@ function exportToExcel() {
 
   const targetClass = state.classes.find(c => c.id === state.currentClassId);
   const isAll = state.currentClassId === 'all';
-  const targetPosts = state.posts.filter(p => isAll || p.classId === state.currentClassId);
+  const targetPosts = state.posts.filter(p => 
+    (isAll || p.classId === state.currentClassId) &&
+    (state.currentCategoryId === 'all' || p.categoryId === state.currentCategoryId)
+  );
 
   if (targetPosts.length === 0) {
     alert('내보낼 작품 데이터가 없습니다.');
     return;
   }
 
-  // Sort by class and student ID
   const sorted = [...targetPosts].sort((a, b) => {
     if (a.classId !== b.classId) return a.classId.localeCompare(b.classId);
     return (a.studentId || '').localeCompare(b.studentId || '', undefined, { numeric: true });
   });
 
-  // Prepare Excel Rows
   const excelData = sorted.map((p, idx) => {
     const cls = state.classes.find(c => c.id === p.classId)?.name || p.classId;
+    const cat = state.categories.find(c => c.id === p.categoryId)?.name || p.categoryName || '미술 과제';
     const bytes = calculateNEISBytes(p.evaluation || '');
     return {
       '연번': idx + 1,
       '학년반': cls,
       '학번': p.studentId || '',
       '성명': p.studentName || '',
+      '과제 카테고리': cat,
       '작품 제목': p.title || '',
       '작품 내용 및 작가노트': p.description || '',
       '과목별 세부능력 및 특기사항(세특)': p.evaluation || '(미작성)',
@@ -540,15 +561,15 @@ function exportToExcel() {
 
   const ws = XLSX.utils.json_to_sheet(excelData);
 
-  // Column widths
   ws['!cols'] = [
     { wch: 6 },   // 연번
     { wch: 12 },  // 학년반
     { wch: 10 },  // 학번
     { wch: 10 },  // 성명
-    { wch: 25 },  // 작품 제목
+    { wch: 24 },  // 카테고리
+    { wch: 26 },  // 작품 제목
     { wch: 45 },  // 작품 내용
-    { wch: 60 },  // 세특
+    { wch: 65 },  // 세특
     { wch: 12 },  // 바이트수
     { wch: 20 }   // 제출 일시
   ];
@@ -589,7 +610,6 @@ function renderQRCode(containerId, url, size = 220) {
   });
 }
 
-// Open Classroom Presenter QR Modal
 function openQRPresenterModal() {
   const modal = document.getElementById('qr-presenter-modal');
   if (!modal) return;
@@ -603,13 +623,10 @@ function openQRPresenterModal() {
   document.getElementById('qr-modal-url').innerText = url;
   
   renderQRCode('qr-presenter-code', url, 260);
-
   modal.classList.remove('hidden');
 }
 
-// ==========================================
-// Image Compression (Client-side HTML5 Canvas)
-// ==========================================
+// Image Compression
 async function compressImageFile(file, maxWidth = 1280, quality = 0.82) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -618,21 +635,16 @@ async function compressImageFile(file, maxWidth = 1280, quality = 0.82) {
       img.onload = () => {
         let width = img.width;
         let height = img.height;
-
         if (width > maxWidth) {
           height = Math.round((height * maxWidth) / width);
           width = maxWidth;
         }
-
         const canvas = document.createElement('canvas');
         canvas.width = width;
         canvas.height = height;
-
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, width, height);
-
-        const dataUrl = canvas.toDataURL('image/jpeg', quality);
-        resolve(dataUrl);
+        resolve(canvas.toDataURL('image/jpeg', quality));
       };
       img.onerror = reject;
       img.src = e.target.result;
@@ -643,12 +655,12 @@ async function compressImageFile(file, maxWidth = 1280, quality = 0.82) {
 }
 
 // ==========================================
-// UI Rendering & Handlers
+// UI Rendering
 // ==========================================
-
 function render() {
   renderNavbar();
   renderClassTabs();
+  renderCategoryFilters();
   renderStudentBadge();
   renderWall();
   renderAdminView();
@@ -682,7 +694,6 @@ function renderClassTabs() {
   if (!container) return;
 
   let html = '';
-  
   if (state.isAdmin) {
     html += `
       <button onclick="switchClass('all')" 
@@ -703,6 +714,41 @@ function renderClassTabs() {
   });
 
   container.innerHTML = html;
+}
+
+function renderCategoryFilters() {
+  const container = document.getElementById('category-filter-container');
+  if (!container) return;
+
+  const currentClassPosts = state.posts.filter(p => state.currentClassId === 'all' || p.classId === state.currentClassId);
+
+  let html = `
+    <button onclick="switchCategory('all')" 
+      class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 ${state.currentCategoryId === 'all' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}">
+      ✨ 전체 과제 (${currentClassPosts.length})
+    </button>
+  `;
+
+  state.categories.forEach(cat => {
+    const active = state.currentCategoryId === cat.id;
+    const count = currentClassPosts.filter(p => p.categoryId === cat.id).length;
+    html += `
+      <button onclick="switchCategory('${cat.id}')" 
+        class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 ${active ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}">
+        <span>${cat.icon || '🎨'}</span>
+        <span>${cat.name}</span>
+        <span class="text-[10px] opacity-80 font-normal">(${count})</span>
+      </button>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+function switchCategory(catId) {
+  state.currentCategoryId = catId;
+  renderCategoryFilters();
+  renderWall();
 }
 
 function renderStudentBadge() {
@@ -746,8 +792,11 @@ function renderWall() {
       : (currentClass?.description || '학생들의 창의적 미술 작품 갤러리');
   }
 
-  // Filter posts
+  // Filter by Class and Category
   let filtered = state.posts.filter(p => state.currentClassId === 'all' || p.classId === state.currentClassId);
+  if (state.currentCategoryId !== 'all') {
+    filtered = filtered.filter(p => p.categoryId === state.currentCategoryId);
+  }
 
   // Search filter
   if (state.searchQuery.trim()) {
@@ -768,8 +817,8 @@ function renderWall() {
     container.innerHTML = `
       <div class="col-span-full py-20 text-center bg-white rounded-2xl border border-dashed border-slate-300">
         <div class="text-5xl mb-3">🎨</div>
-        <h3 class="text-lg font-bold text-slate-700">아직 등록된 작품이 없습니다</h3>
-        <p class="text-sm text-slate-500 mt-1 mb-5">수업 시간에 완성한 멋진 작품을 가장 먼저 업로드해보세요!</p>
+        <h3 class="text-lg font-bold text-slate-700">해당 조건에 등록된 작품이 없습니다</h3>
+        <p class="text-sm text-slate-500 mt-1 mb-5">수업 시간에 완성한 멋진 작품을 등록해보세요!</p>
         <button onclick="openUploadModal()" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-semibold text-sm shadow-md transition-all">
           <span>+ 내 작품 등록하기</span>
         </button>
@@ -781,6 +830,9 @@ function renderWall() {
   let html = '';
   filtered.forEach(post => {
     const className = state.classes.find(c => c.id === post.classId)?.name || post.classId;
+    const cat = state.categories.find(c => c.id === post.categoryId);
+    const catName = cat ? cat.name : (post.categoryName || '미술 과제');
+    const catIcon = cat ? cat.icon : '🎨';
     const hasEval = !!post.evaluation;
     const dateFormatted = post.createdAt ? new Date(post.createdAt).toLocaleDateString('ko-KR') : '';
 
@@ -789,7 +841,7 @@ function renderWall() {
         <!-- Artwork Image -->
         <div class="relative aspect-[4/3] bg-slate-100 overflow-hidden cursor-pointer" onclick="openDetailModal('${post.id}')">
           <img src="${post.imageUrl}" alt="${post.title}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-          <div class="absolute top-3 left-3 flex gap-1.5">
+          <div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
             <span class="bg-black/60 backdrop-blur-md text-white text-[11px] font-bold px-2.5 py-1 rounded-full">
               ${className}
             </span>
@@ -805,9 +857,17 @@ function renderWall() {
 
         <!-- Card Body -->
         <div class="p-4 flex-1 flex flex-col">
+          <!-- Category Badge -->
+          <div class="mb-2">
+            <span class="inline-flex items-center gap-1 bg-indigo-50 text-indigo-700 border border-indigo-100 px-2 py-0.5 rounded-md text-[10px] font-bold">
+              <span>${catIcon}</span>
+              <span>${catName}</span>
+            </span>
+          </div>
+
           <div class="flex items-center justify-between text-xs text-slate-500 mb-1.5">
             <div class="flex items-center gap-1 font-semibold text-slate-800">
-              <span class="bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded text-[11px] font-bold">${post.studentId || '학번미입력'}</span>
+              <span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[11px] font-bold">${post.studentId || '학번미입력'}</span>
               <span>${post.studentName}</span>
             </div>
             <span>${dateFormatted}</span>
@@ -869,8 +929,11 @@ function renderAdminView() {
 
   adminSection.classList.remove('hidden');
 
-  // Stats
-  const targetPosts = state.posts.filter(p => state.currentClassId === 'all' || p.classId === state.currentClassId);
+  const targetPosts = state.posts.filter(p => 
+    (state.currentClassId === 'all' || p.classId === state.currentClassId) &&
+    (state.currentCategoryId === 'all' || p.categoryId === state.currentCategoryId)
+  );
+
   const evalDone = targetPosts.filter(p => !!p.evaluation).length;
   const evalPending = targetPosts.length - evalDone;
   const percent = targetPosts.length > 0 ? Math.round((evalDone / targetPosts.length) * 100) : 0;
@@ -879,7 +942,6 @@ function renderAdminView() {
   document.getElementById('admin-stat-done').innerText = `${evalDone}명 (${percent}%)`;
   document.getElementById('admin-stat-pending').innerText = `${evalPending}명`;
 
-  // Render Table Rows
   const tbody = document.getElementById('admin-evaluation-tbody');
   if (!tbody) return;
 
@@ -897,6 +959,8 @@ function renderAdminView() {
   let html = '';
   targetPosts.forEach((post, index) => {
     const className = state.classes.find(c => c.id === post.classId)?.name || post.classId;
+    const cat = state.categories.find(c => c.id === post.categoryId);
+    const catName = cat ? cat.name : (post.categoryName || '과제');
     const bytes = calculateNEISBytes(post.evaluation || '');
     const charCount = (post.evaluation || '').length;
 
@@ -908,6 +972,11 @@ function renderAdminView() {
         <td class="py-3 px-3 whitespace-nowrap">
           <div class="text-xs font-bold text-slate-900">${post.studentName}</div>
           <div class="text-[11px] text-slate-500">${className} &bull; ${post.studentId}</div>
+          <div class="mt-1">
+            <span class="bg-indigo-50 text-indigo-700 px-1.5 py-0.5 rounded text-[10px] font-bold">
+              ${catName}
+            </span>
+          </div>
         </td>
 
         <!-- Artwork Info -->
@@ -959,7 +1028,6 @@ function renderAdminView() {
   tbody.innerHTML = html;
 }
 
-// Live edit in admin table
 function onSeTeukInputChange(postId) {
   const textarea = document.getElementById(`eval-input-${postId}`);
   const badge = document.getElementById(`bytes-badge-${postId}`);
@@ -976,7 +1044,6 @@ function onSeTeukInputChange(postId) {
     badge.className = 'font-medium text-indigo-600';
   }
 
-  // Debounced auto-save
   clearTimeout(window[`save_timer_${postId}`]);
   window[`save_timer_${postId}`] = setTimeout(() => {
     updatePost(postId, {
@@ -995,13 +1062,10 @@ function copyToClipboard(postId) {
   });
 }
 
-// ==========================================
-// Student Gate Modal Logic
-// ==========================================
+// Student Gate
 function checkStudentEntryGate() {
   if (state.isAdmin) return;
   if (!state.currentUser.studentName) {
-    // Show gate modal on first arrival
     openStudentEntryModal();
   }
 }
@@ -1036,13 +1100,10 @@ function handleSaveStudentEntry(e) {
   showToast(`환영합니다, ${idVal} ${nameVal} 학생! 🎨`, 'success');
 }
 
-// ==========================================
-// Upload Artwork Modal Logic
-// ==========================================
+// Upload Modal Logic
 let currentUploadImageData = null;
 
 function openUploadModal() {
-  // If student hasn't entered info yet, ask for it first
   if (!state.currentUser.studentName && !state.isAdmin) {
     openStudentEntryModal();
     return;
@@ -1051,7 +1112,6 @@ function openUploadModal() {
   const modal = document.getElementById('upload-modal');
   if (!modal) return;
 
-  // Pre-fill student info
   document.getElementById('upload-student-id').value = state.currentUser.studentId || '';
   document.getElementById('upload-student-name').value = state.currentUser.studentName || '';
   
@@ -1060,6 +1120,14 @@ function openUploadModal() {
   classSelect.innerHTML = state.classes.map(c => 
     `<option value="${c.id}" ${c.id === state.currentClassId ? 'selected' : ''}>${c.name}</option>`
   ).join('');
+
+  // Fill category options
+  const catSelect = document.getElementById('upload-category-select');
+  catSelect.innerHTML = state.categories.map(c => 
+    `<option value="${c.id}" ${c.id === (state.currentCategoryId !== 'all' ? state.currentCategoryId : state.categories[0].id) ? 'selected' : ''}>${c.icon} ${c.name}</option>`
+  ).join('');
+
+  onUploadCategoryChange();
 
   // Reset form
   document.getElementById('upload-title').value = '';
@@ -1070,6 +1138,21 @@ function openUploadModal() {
   document.getElementById('upload-dropzone').classList.remove('hidden');
 
   modal.classList.remove('hidden');
+}
+
+function onUploadCategoryChange() {
+  const catId = document.getElementById('upload-category-select').value;
+  const guides = {
+    'cat-character': `💡 <strong>우리학교 캐릭터 디자인 가이드:</strong><br>1. 학교의 어떤 상징(교목 소나무, 교화 매화, 학교 역사 등)을 모티브로 선택했나요?<br>2. 캐릭터의 비례, 형태 단순화, 상징색 배색에서 신경 쓴 부분은 무엇인가요?<br>3. 교내 굿즈(스티커, 뱃지 등)나 홍보물로서 어떻게 활용될 수 있을까요?`,
+    'cat-frame': `💡 <strong>프레임으로 본 풍경 가이드:</strong><br>1. 어떤 프레임(창틀, 거울, 문, 구조물 등)을 통해 어느 장소의 풍경을 포착했나요?<br>2. 프레임을 통해 시선을 어떻게 유도하고 원근감과 구도를 어떻게 설정했나요?<br>3. 시간대에 따른 빛과 그림자, 명암의 변화를 어떤 기법으로 표현했나요?`,
+    'cat-eco': `💡 <strong>생태미술 프로젝트 가이드:</strong><br>1. 어떤 자연물이나 업사이클링/재활용 소재를 탐구하고 활용했나요?<br>2. 인공물과 자연물의 재질감(마티에르)을 어떻게 조화시켰나요?<br>3. 기후 위기나 생명 존중 등 작품을 통해 전하고자 하는 환경적 메시지는 무엇인가요?`,
+    'cat-portrait': `💡 <strong>상징으로 그리는 자화상 가이드:</strong><br>1. 자신의 어떤 내면(가치관, 고민, 열망, 성격 등)을 표현하고자 했나요?<br>2. 자신을 대변하기 위해 어떤 상징적 사물(오브제)이나 색채, 형태 왜곡을 사용했나요?<br>3. 완성된 자화상을 통해 관람자에게 전하고 싶은 자신의 진정한 모습은 무엇인가요?`
+  };
+
+  const guideContainer = document.getElementById('upload-category-guide');
+  if (guideContainer && guides[catId]) {
+    guideContainer.innerHTML = guides[catId];
+  }
 }
 
 function closeUploadModal() {
@@ -1099,6 +1182,10 @@ async function handleSubmitUpload(e) {
   if (e) e.preventDefault();
 
   const classId = document.getElementById('upload-class-select').value;
+  const categoryId = document.getElementById('upload-category-select').value;
+  const catObj = state.categories.find(c => c.id === categoryId);
+  const categoryName = catObj ? catObj.name : '미술 과제';
+
   const studentId = document.getElementById('upload-student-id').value.trim();
   const studentName = document.getElementById('upload-student-name').value.trim();
   const title = document.getElementById('upload-title').value.trim();
@@ -1121,11 +1208,12 @@ async function handleSubmitUpload(e) {
     return;
   }
 
-  // Update current user info
   saveStudentUser(studentId, studentName);
 
   const postData = {
     classId: classId,
+    categoryId: categoryId,
+    categoryName: categoryName,
     studentId: studentId,
     studentName: studentName,
     title: title,
@@ -1151,9 +1239,7 @@ async function handleSubmitUpload(e) {
   }
 }
 
-// ==========================================
-// Artwork Detail Modal Logic
-// ==========================================
+// Artwork Detail Modal
 let activeDetailPostId = null;
 
 function openDetailModal(postId) {
@@ -1165,16 +1251,17 @@ function openDetailModal(postId) {
   if (!modal) return;
 
   const className = state.classes.find(c => c.id === post.classId)?.name || post.classId;
+  const cat = state.categories.find(c => c.id === post.categoryId);
+  const catName = cat ? cat.name : (post.categoryName || '미술 과제');
 
   document.getElementById('detail-image').src = post.imageUrl;
-  document.getElementById('detail-badge-class').innerText = className;
+  document.getElementById('detail-badge-class').innerText = `${className} &bull; ${catName}`;
   document.getElementById('detail-student-info').innerText = `${post.studentId ? post.studentId + ' ' : ''}${post.studentName}`;
   document.getElementById('detail-title').innerText = post.title;
   document.getElementById('detail-desc').innerText = post.description || '(작품 설명 없음)';
   document.getElementById('detail-likes-count').innerText = post.likes || 0;
 
   renderDetailComments(post);
-
   modal.classList.remove('hidden');
 }
 
@@ -1217,9 +1304,7 @@ async function handleDetailAddComment() {
   if (post) renderDetailComments(post);
 }
 
-// ==========================================
 // Admin Mode Auth & Settings
-// ==========================================
 function toggleAdminMode() {
   if (state.isAdmin) {
     state.isAdmin = false;
@@ -1272,9 +1357,7 @@ function handleSaveSettings(e) {
   showToast('설정이 저장되었습니다!', 'success');
 }
 
-// ==========================================
-// Toast Notifications
-// ==========================================
+// Toast
 function showToast(message, type = 'info') {
   const container = document.getElementById('toast-container');
   if (!container) return;
@@ -1297,7 +1380,6 @@ function showToast(message, type = 'info') {
 
 // Setup Event Listeners
 function setupEventListeners() {
-  // Search input
   const searchInput = document.getElementById('artwork-search-input');
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
@@ -1306,7 +1388,6 @@ function setupEventListeners() {
     });
   }
 
-  // File dropzone
   const dropzone = document.getElementById('upload-dropzone');
   const fileInput = document.getElementById('upload-image-input');
   if (dropzone && fileInput) {
