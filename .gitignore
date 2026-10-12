@@ -1,0 +1,11 @@
+# Logs
+*.log
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Temporary test files
+test_*.ps1

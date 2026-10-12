@@ -1,0 +1,91 @@
+﻿[
+    {
+        "id":  "post-101",
+        "classId":  "1-1",
+        "studentId":  "10101",
+        "studentName":  "강서준",
+        "title":  "시간의 잔상과 현대인의 속도",
+        "description":  "현대 사회는 너무 빠르게 흘러가서 개인의 소중한 순간들이 쉽게 잊혀집니다. 살바도르 달리의 초현실주의적 왜곡 기법에서 영감을 얻어, 빠르게 흘러가는 시간 속에서 남겨진 잔상과 허탈함을 시계의 곡선 왜곡과 붉은색에서 푸른색으로 변화하는 색채 그라데이션으로 표현했습니다. 특히 중심부의 시계 침이 흩뿌려지는 듯한 거친 붓터치를 주어 시간의 비가역성을 강조했습니다.",
+        "imageUrl":  "data:image/svg+xml;utf8,\u003csvg xmlns=\u0027http://www.w3.org/2000/svg\u0027 viewBox=\u00270 0 800 600\u0027 width=\u0027800\u0027 height=\u0027600\u0027\u003e\u003cdefs\u003e\u003clinearGradient id=\u0027bg1\u0027 x1=\u00270%\u0027 y1=\u00270%\u0027 x2=\u0027100%\u0027 y2=\u0027100%\u0027\u003e\u003cstop offset=\u00270%\u0027 stop-color=\u0027%231e1b4b\u0027/\u003e\u003cstop offset=\u002750%\u0027 stop-color=\u0027%234c1d95\u0027/\u003e\u003cstop offset=\u0027100%\u0027 stop-color=\u0027%23be123c\u0027/\u003e\u003c/linearGradient\u003e\u003clinearGradient id=\u0027clockGrad\u0027 x1=\u00270%\u0027 y1=\u00270%\u0027 x2=\u0027100%\u0027 y2=\u0027100%\u0027\u003e\u003cstop offset=\u00270%\u0027 stop-color=\u0027%23fef08a\u0027/\u003e\u003cstop offset=\u0027100%\u0027 stop-color=\u0027%23ca8a04\u0027/\u003e\u003c/linearGradient\u003e\u003cfilter id=\u0027glow\u0027\u003e\u003cfeGaussianBlur stdDeviation=\u00278\u0027 result=\u0027coloredBlur\u0027/\u003e\u003cfeMerge\u003e\u003cfeMergeNode in=\u0027coloredBlur\u0027/\u003e\u003cfeMergeNode in=\u0027SourceGraphic\u0027/\u003e\u003c/feMerge\u003e\u003c/filter\u003e\u003c/defs\u003e\u003crect width=\u0027800\u0027 height=\u0027600\u0027 fill=\u0027url(%23bg1)\u0027/\u003e\u003cpath d=\u0027M100,500 C300,450 500,550 700,480 L800,600 L0,600 Z\u0027 fill=\u0027%230f172a\u0027 opacity=\u00270.8\u0027/\u003e\u003cpath d=\u0027M250,180 C400,120 520,200 480,360 C450,480 320,440 260,350 C210,270 180,220 250,180 Z\u0027 fill=\u0027url(%23clockGrad)\u0027 filter=\u0027url(%23glow)\u0027 opacity=\u00270.9\u0027/\u003e\u003cpath d=\u0027M280,220 C380,180 440,240 420,340 C400,410 320,380 290,320 Z\u0027 fill=\u0027%23fef9c3\u0027 opacity=\u00270.95\u0027/\u003e\u003ccircle cx=\u0027350\u0027 cy=\u0027280\u0027 r=\u002710\u0027 fill=\u0027%231e293b\u0027/\u003e\u003cline x1=\u0027350\u0027 y1=\u0027280\u0027 x2=\u0027320\u0027 y2=\u0027220\u0027 stroke=\u0027%231e293b\u0027 stroke-width=\u00276\u0027 stroke-linecap=\u0027round\u0027/\u003e\u003cline x1=\u0027350\u0027 y1=\u0027280\u0027 x2=\u0027410\u0027 y2=\u0027310\u0027 stroke=\u0027%23dc2626\u0027 stroke-width=\u00274\u0027 stroke-linecap=\u0027round\u0027/\u003e\u003ctext x=\u0027350\u0027 y=\u0027210\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002720\u0027 font-weight=\u0027bold\u0027 fill=\u0027%23334155\u0027 text-anchor=\u0027middle\u0027\u003e12\u003c/text\u003e\u003ctext x=\u0027400\u0027 y=\u0027285\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002720\u0027 font-weight=\u0027bold\u0027 fill=\u0027%23334155\u0027 text-anchor=\u0027middle\u0027\u003e3\u003c/text\u003e\u003ctext x=\u0027330\u0027 y=\u0027360\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002720\u0027 font-weight=\u0027bold\u0027 fill=\u0027%23334155\u0027 text-anchor=\u0027middle\u0027\u003e6\u003c/text\u003e\u003ctext x=\u0027290\u0027 y=\u0027285\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002720\u0027 font-weight=\u0027bold\u0027 fill=\u0027%23334155\u0027 text-anchor=\u0027middle\u0027\u003e9\u003c/text\u003e\u003cpath d=\u0027M420,340 Q550,400 680,350\u0027 stroke=\u0027%23fef08a\u0027 stroke-width=\u00278\u0027 fill=\u0027none\u0027 stroke-dasharray=\u002712,12\u0027/\u003e\u003ccircle cx=\u0027680\u0027 cy=\u0027350\u0027 r=\u00276\u0027 fill=\u0027%23fef08a\u0027/\u003e\u003cg opacity=\u00270.4\u0027\u003e\u003ccircle cx=\u0027150\u0027 cy=\u0027120\u0027 r=\u002740\u0027 fill=\u0027%23a855f7\u0027/\u003e\u003ccircle cx=\u0027650\u0027 cy=\u0027160\u0027 r=\u002780\u0027 fill=\u0027%23ec4899\u0027/\u003e\u003cline x1=\u002750\u0027 y1=\u0027300\u0027 x2=\u0027750\u0027 y2=\u0027250\u0027 stroke=\u0027%23ffffff\u0027 stroke-width=\u00271\u0027 stroke-dasharray=\u00275,5\u0027/\u003e\u003c/g\u003e\u003ctext x=\u0027400\u0027 y=\u0027550\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002728\u0027 font-weight=\u0027bold\u0027 fill=\u0027%23ffffff\u0027 opacity=\u00270.85\u0027 text-anchor=\u0027middle\u0027\u003eTIME DISTORTION \u0026bull; ACRYLIC ON CANVAS\u003c/text\u003e\u003c/svg\u003e",
+        "createdAt":  "2026-10-10T10:15:00.000Z",
+        "likes":  12,
+        "comments":  [
+                         {
+                             "id":  "c1",
+                             "studentName":  "김민서",
+                             "content":  "달리의 기억의 지속 느낌도 나고 시계 왜곡 표현이 진짜 멋져!",
+                             "createdAt":  "2026-10-10T10:30:00.000Z"
+                         },
+                         {
+                             "id":  "c2",
+                             "studentName":  "이채원",
+                             "content":  "붉은색과 푸른색의 대비가 시간의 촉박함을 잘 보여주는 것 같아.",
+                             "createdAt":  "2026-10-10T11:05:00.000Z"
+                         }
+                     ],
+        "evaluation":  "‘시간의 잔상과 현대인의 속도’를 주제로 현대 사회의 속도감과 그에 따른 개인의 심리적 소외를 초현실주의적 조형 언어로 탁월하게 시각화함. 시계의 유기적 형태 왜곡과 한색에서 난색으로 이어지는 명도 대비를 전략적으로 구사하여 시간의 비가역성을 효과적으로 전달함. 거친 붓터치를 중첩하여 속도감과 잔상의 시각적 질감을 생생하게 구현하였으며, 동시대적 문제의식을 예술적으로 승화시키는 뛰어난 시각 소통 능력과 주제 탐구 역량을 보임.",
+        "evaluationBytes":  482,
+        "evaluationStyle":  "표현기법 및 조형미 중심"
+    },
+    {
+        "id":  "post-102",
+        "classId":  "1-1",
+        "studentId":  "10105",
+        "studentName":  "김민서",
+        "title":  "침묵 속의 외침 (The Silent Cry)",
+        "description":  "청소년기에는 주변의 기대와 학업 스트레스로 인해 겉으로는 밝게 웃고 있지만 속으로는 수많은 감정들이 소용돌이칩니다. 전통 수묵의 번짐 기법과 서양 펜화의 정밀한 해칭(hatching) 선묘를 융합하여 침묵하는 얼굴 윤곽 내부에 격렬한 파도와 먹물 파편을 배치했습니다. 흑백의 극명한 명암 대비를 통해 언어로 다 표현하지 못하는 내면의 고뇌와 성장의 열망을 표현하고자 했습니다.",
+        "imageUrl":  "data:image/svg+xml;utf8,\u003csvg xmlns=\u0027http://www.w3.org/2000/svg\u0027 viewBox=\u00270 0 800 600\u0027 width=\u0027800\u0027 height=\u0027600\u0027\u003e\u003crect width=\u0027800\u0027 height=\u0027600\u0027 fill=\u0027%2309090b\u0027/\u003e\u003ccircle cx=\u0027400\u0027 cy=\u0027300\u0027 r=\u0027220\u0027 fill=\u0027%2318181b\u0027 stroke=\u0027%233f3f46\u0027 stroke-width=\u00273\u0027/\u003e\u003cpath d=\u0027M250,300 Q400,100 550,300 Q400,500 250,300 Z\u0027 fill=\u0027%23fafafa\u0027 opacity=\u00270.9\u0027/\u003e\u003cpath d=\u0027M300,300 C320,240 380,220 400,280 C420,220 480,240 500,300 C480,380 420,400 400,340 C380,400 320,380 300,300 Z\u0027 fill=\u0027%2318181b\u0027/\u003e\u003cpath d=\u0027M350,280 Q400,320 450,280\u0027 stroke=\u0027%23ef4444\u0027 stroke-width=\u00276\u0027 fill=\u0027none\u0027 stroke-linecap=\u0027round\u0027/\u003e\u003cg stroke=\u0027%23ffffff\u0027 stroke-width=\u00271.5\u0027 opacity=\u00270.7\u0027\u003e\u003cline x1=\u0027280\u0027 y1=\u0027180\u0027 x2=\u0027340\u0027 y2=\u0027240\u0027/\u003e\u003cline x1=\u0027290\u0027 y1=\u0027170\u0027 x2=\u0027350\u0027 y2=\u0027230\u0027/\u003e\u003cline x1=\u0027300\u0027 y1=\u0027160\u0027 x2=\u0027360\u0027 y2=\u0027220\u0027/\u003e\u003cline x1=\u0027460\u0027 y1=\u0027180\u0027 x2=\u0027520\u0027 y2=\u0027240\u0027/\u003e\u003cline x1=\u0027470\u0027 y1=\u0027170\u0027 x2=\u0027530\u0027 y2=\u0027230\u0027/\u003e\u003cline x1=\u0027480\u0027 y1=\u0027160\u0027 x2=\u0027540\u0027 y2=\u0027220\u0027/\u003e\u003c/g\u003e\u003cpath d=\u0027M400,350 L380,500 L400,470 L420,520 Z\u0027 fill=\u0027%23ef4444\u0027/\u003e\u003ccircle cx=\u0027280\u0027 cy=\u0027380\u0027 r=\u002715\u0027 fill=\u0027%2338bdf8\u0027 opacity=\u00270.6\u0027/\u003e\u003ccircle cx=\u0027520\u0027 cy=\u0027380\u0027 r=\u002715\u0027 fill=\u0027%2338bdf8\u0027 opacity=\u00270.6\u0027/\u003e\u003ctext x=\u0027400\u0027 y=\u0027570\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002724\u0027 font-weight=\u0027bold\u0027 fill=\u0027%23e4e4e7\u0027 text-anchor=\u0027middle\u0027\u003ePEN \u0026amp; INK EXPERIMENTATION \u0026bull; SILENT EXPRESSION\u003c/text\u003e\u003c/svg\u003e",
+        "createdAt":  "2026-10-10T11:00:00.000Z",
+        "likes":  15,
+        "comments":  [
+                         {
+                             "id":  "c3",
+                             "studentName":  "박지후",
+                             "content":  "흑백 대비가 진짜 강렬하다. 붉은색 포인트가 인상적이야!",
+                             "createdAt":  "2026-10-10T11:20:00.000Z"
+                         }
+                     ],
+        "evaluation":  "‘침묵 속의 외침’을 주제로 동양화의 먹 번짐과 서양 펜화의 밀도 높은 해칭 기법을 독창적으로 절충하여 표현함. 흑백의 극명한 명암 대비를 통해 청소년기 내면의 복합적 갈등과 정서적 분출을 섬세하면서도 강렬한 조형미로 형상화함. 선의 굵기와 밀도를 정밀하게 조절하여 감정의 깊이를 구조화하였으며, 절제된 색채 운용 속에서 주제 의식을 극대화하는 수준 높은 미적 감수성과 조형 능력을 입증함.",
+        "evaluationBytes":  476,
+        "evaluationStyle":  "창의적 발상 및 주제의식 중심"
+    },
+    {
+        "id":  "post-103",
+        "classId":  "1-1",
+        "studentId":  "10112",
+        "studentName":  "박지후",
+        "title":  "도시의 틈, 초록의 숨결",
+        "description":  "매일 등하굣길에 마주치는 삭막한 콘크리트 보도블록 틈새에서 힘차게 피어난 민들레 한 송이를 보고 생명에 대한 경외감을 느꼈습니다. 회색 모노톤의 입체적 기하학 블록들과 그 틈을 비집고 솟아나는 강렬한 에메랄드빛 식물의 생명력을 대비시켰습니다. 실제 버려진 신문지와 한지를 콜라주하여 회색 벽의 거친 질감을 질감감(마티에르) 있게 살렸습니다.",
+        "imageUrl":  "data:image/svg+xml;utf8,\u003csvg xmlns=\u0027http://www.w3.org/2000/svg\u0027 viewBox=\u00270 0 800 600\u0027 width=\u0027800\u0027 height=\u0027600\u0027\u003e\u003cdefs\u003e\u003clinearGradient id=\u0027gradCity\u0027 x1=\u00270%\u0027 y1=\u00270%\u0027 x2=\u0027100%\u0027 y2=\u00270%\u0027\u003e\u003cstop offset=\u00270%\u0027 stop-color=\u0027%23334155\u0027/\u003e\u003cstop offset=\u0027100%\u0027 stop-color=\u0027%2364748b\u0027/\u003e\u003c/linearGradient\u003e\u003clinearGradient id=\u0027gradPlant\u0027 x1=\u00270%\u0027 y1=\u0027100%\u0027 x2=\u00270%\u0027 y2=\u00270%\u0027\u003e\u003cstop offset=\u00270%\u0027 stop-color=\u0027%2315803d\u0027/\u003e\u003cstop offset=\u0027100%\u0027 stop-color=\u0027%234ade80\u0027/\u003e\u003c/linearGradient\u003e\u003c/defs\u003e\u003crect width=\u0027800\u0027 height=\u0027600\u0027 fill=\u0027%231e293b\u0027/\u003e\u003crect x=\u0027100\u0027 y=\u0027150\u0027 width=\u0027250\u0027 height=\u0027350\u0027 fill=\u0027url(%23gradCity)\u0027 stroke=\u0027%230f172a\u0027 stroke-width=\u00274\u0027/\u003e\u003crect x=\u0027450\u0027 y=\u0027100\u0027 width=\u0027250\u0027 height=\u0027400\u0027 fill=\u0027url(%23gradCity)\u0027 stroke=\u0027%230f172a\u0027 stroke-width=\u00274\u0027/\u003e\u003cg fill=\u0027%230f172a\u0027 opacity=\u00270.7\u0027\u003e\u003crect x=\u0027130\u0027 y=\u0027180\u0027 width=\u002740\u0027 height=\u002750\u0027/\u003e\u003crect x=\u0027190\u0027 y=\u0027180\u0027 width=\u002740\u0027 height=\u002750\u0027/\u003e\u003crect x=\u0027250\u0027 y=\u0027180\u0027 width=\u002740\u0027 height=\u002750\u0027/\u003e\u003crect x=\u0027490\u0027 y=\u0027140\u0027 width=\u002740\u0027 height=\u002750\u0027/\u003e\u003crect x=\u0027560\u0027 y=\u0027140\u0027 width=\u002740\u0027 height=\u002750\u0027/\u003e\u003crect x=\u0027630\u0027 y=\u0027140\u0027 width=\u002740\u0027 height=\u002750\u0027/\u003e\u003c/g\u003e\u003cpath d=\u0027M350,500 C370,420 380,320 390,220 C400,200 420,200 430,230 C420,330 425,430 450,500 Z\u0027 fill=\u0027url(%23gradPlant)\u0027/\u003e\u003ccircle cx=\u0027410\u0027 cy=\u0027190\u0027 r=\u002725\u0027 fill=\u0027%23facc15\u0027 stroke=\u0027%23ca8a04\u0027 stroke-width=\u00273\u0027/\u003e\u003cpath d=\u0027M370,280 C320,260 300,320 350,330 Z\u0027 fill=\u0027%2322c55e\u0027/\u003e\u003cpath d=\u0027M440,310 C500,290 510,360 450,370 Z\u0027 fill=\u0027%2322c55e\u0027/\u003e\u003ctext x=\u0027400\u0027 y=\u0027560\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002724\u0027 font-weight=\u0027bold\u0027 fill=\u0027%2394a3b8\u0027 text-anchor=\u0027middle\u0027\u003eMIXED MEDIA COLLAGE \u0026bull; NATURE IN URBAN VOID\u003c/text\u003e\u003c/svg\u003e",
+        "createdAt":  "2026-10-10T14:20:00.000Z",
+        "likes":  9,
+        "comments":  [
+                         {
+                             "id":  "c4",
+                             "studentName":  "강서준",
+                             "content":  "콘크리트 질감 표현이랑 노란 꽃의 조화가 감동적이에요.",
+                             "createdAt":  "2026-10-10T14:50:00.000Z"
+                         }
+                     ],
+        "evaluation":  "‘도시의 틈, 초록의 숨결’이라는 작품을 통해 도시화와 자연의 공존이라는 환경적 가치를 미학적으로 탐색함. 차가운 무채색의 콘크리트 빌딩과 생명력을 지닌 유기적 형태의 식물을 극적으로 대비시켜 시각적 긴장감과 상징성을 동시에 확보함. 폐종이와 한지를 활용한 콜라주 기법으로 촉각적 마티에르를 창의적으로 구현하였으며, 일상에서 예술적 영감을 포착하는 관찰력과 환경 생태적 감수성이 돋보임.",
+        "evaluationBytes":  471,
+        "evaluationStyle":  "주제의식 및 생태적 감수성 중심"
+    },
+    {
+        "id":  "post-201",
+        "classId":  "1-2",
+        "studentId":  "10203",
+        "studentName":  "정우진",
+        "title":  "기억의 파편과 공간의 재구성",
+        "description":  "어린 시절 살았던 시골집 마당의 기억을 입체주의(Cubism)적인 다시점 공간 분할 기법으로 해체하여 재조합했습니다. 따뜻한 노을빛 주황색과 아침 이슬의 푸른빛을 기하학적 도형 안에 교차시켜 배치함으로써 하나의 캔버스 위에 여러 시간대의 기억이 공존하도록 유도했습니다.",
+        "imageUrl":  "data:image/svg+xml;utf8,\u003csvg xmlns=\u0027http://www.w3.org/2000/svg\u0027 viewBox=\u00270 0 800 600\u0027 width=\u0027800\u0027 height=\u0027600\u0027\u003e\u003crect width=\u0027800\u0027 height=\u0027600\u0027 fill=\u0027%230f172a\u0027/\u003e\u003cpolygon points=\u0027100,100 400,80 320,350 80,300\u0027 fill=\u0027%23f97316\u0027 opacity=\u00270.85\u0027/\u003e\u003cpolygon points=\u0027400,80 700,120 620,380 320,350\u0027 fill=\u0027%230284c7\u0027 opacity=\u00270.85\u0027/\u003e\u003cpolygon points=\u002780,300 320,350 250,550 50,500\u0027 fill=\u0027%23eab308\u0027 opacity=\u00270.85\u0027/\u003e\u003cpolygon points=\u0027320,350 620,380 580,540 250,550\u0027 fill=\u0027%236366f1\u0027 opacity=\u00270.85\u0027/\u003e\u003cpolygon points=\u0027620,380 750,250 720,480 580,540\u0027 fill=\u0027%23ec4899\u0027 opacity=\u00270.85\u0027/\u003e\u003ccircle cx=\u0027320\u0027 cy=\u0027350\u0027 r=\u002730\u0027 fill=\u0027%23ffffff\u0027 opacity=\u00270.9\u0027/\u003e\u003cline x1=\u0027100\u0027 y1=\u0027100\u0027 x2=\u0027620\u0027 y2=\u0027380\u0027 stroke=\u0027%23ffffff\u0027 stroke-width=\u00272\u0027 stroke-dasharray=\u00276,6\u0027/\u003e\u003ctext x=\u0027400\u0027 y=\u0027575\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002722\u0027 font-weight=\u0027bold\u0027 fill=\u0027%23cbd5e1\u0027 text-anchor=\u0027middle\u0027\u003eCUBIST SPATIAL DECONSTRUCTION \u0026bull; ACRYLIC\u003c/text\u003e\u003c/svg\u003e",
+        "createdAt":  "2026-10-11T09:30:00.000Z",
+        "likes":  8,
+        "comments":  [
+
+                     ],
+        "evaluation":  "‘기억의 파편과 공간의 재구성’을 주제로 입체파의 다시점 원리와 면 분할 기법을 창의적으로 재해석하여 완성함. 시간의 흐름에 따른 상이한 기억들을 기하학적 다각형 구조 안에 공존시키고, 난색과 한색의 조화로운 교차 배치를 통해 정서적 깊이감을 효과적으로 부여함. 평면 회화 안에서 다차원적 시공간을 능동적으로 설계하는 공간 지각 능력과 조형적 실험 정신이 탁월함.",
+        "evaluationBytes":  456,
+        "evaluationStyle":  "조형 요소 및 공간 구성 중심"
+    }
+]

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>고등학교 미술 수업 아트보드 & 세특 관리 시스템</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              700: '#6d28d9'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Local / Fallback Vendor Scripts -->
+  <script src="vendor/qrcode.min.js"></script>
+  <script src="vendor/xlsx.full.min.js"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col text-slate-800">
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-30 glass-header border-b border-slate-200/80 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand & Class Selector -->
+      <div class="flex items-center gap-3">
+        <a href="/" class="flex items-center gap-2 text-indigo-700 font-extrabold text-lg sm:text-xl tracking-tight">
+          <span class="text-2xl">🎨</span>
+          <span class="hidden sm:inline">아트보드</span>
+          <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-800 hidden md:inline">고등 미술</span>
+        </a>
+
+        <!-- Class Navigation Pills -->
+        <div id="class-tabs-container" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+          <!-- Dynamic class pills loaded by JS -->
+        </div>
+      </div>
+
+      <!-- User Info & Action Buttons -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Student Info Badge -->
+        <div id="student-info-badge" class="hidden sm:block">
+          <!-- Loaded by JS -->
+        </div>
+
+        <!-- QR Presenter Button (수업용 대형화면) -->
+        <button onclick="openQRPresenterModal()" class="flex items-center gap-1.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all shadow-2xs" title="수업용 학생 QR코드 화면 띄우기">
+          <span>📱</span>
+          <span class="hidden md:inline">QR코드 안내</span>
+        </button>
+
+        <!-- Upload Artwork Button -->
+        <button onclick="openUploadModal()" class="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold shadow-sm transition-all hover:shadow-md">
+          <span>+</span>
+          <span>작품 등록</span>
+        </button>
+
+        <!-- Teacher Admin Mode Toggle -->
+        <button id="admin-toggle-btn" onclick="toggleAdminMode()" class="flex items-center gap-1 bg-slate-800 hover:bg-slate-900 text-white px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all">
+          <span>교사 관리자 모드 🔒</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Admin Mode Notification Banner -->
+  <div id="admin-mode-badge" class="hidden bg-slate-900 text-white text-xs py-2 px-4 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="flex h-2 w-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <span class="font-bold text-amber-300">👑 교사 관리자 모드 활성화됨</span>
+        <span class="text-slate-300 hidden sm:inline">&bull; 학생 작품에 대한 AI 세특 자동 생성, 편집 및 엑셀 다운로드가 가능합니다.</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="openSettingsModal()" class="text-xs text-indigo-300 hover:text-white underline">
+          ⚙️ AI 세특 설정
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+    <!-- TEACHER ADMIN DASHBOARD (When Admin Mode is Active) -->
+    <section id="admin-dashboard-section" class="hidden bg-white rounded-2xl border border-slate-200/90 shadow-sm p-5 sm:p-6 space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+        <div>
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900 flex items-center gap-2">
+            <span>📊 교사용 과목별 세특 평가 & 관리 대시보드</span>
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">
+            학생들이 제출한 미술작품과 작가노트를 분석하여 학교생활기록부 '과목별 세부능력 및 특기사항' 문장을 자동 생성하고 엑셀로 내보냅니다.
+          </p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- Batch Generate Se-teuk -->
+          <button onclick="handleBatchGenerateSeTeuk()" class="flex items-center gap-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all">
+            <span>⚡</span>
+            <span>전체 세특 일괄 생성 (AI)</span>
+          </button>
+
+          <!-- Export Excel -->
+          <button onclick="exportToExcel()" class="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-bold shadow-sm transition-all hover:shadow-md">
+            <span>📥</span>
+            <span>세특 엑셀 다운로드 (.xlsx)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats Counters -->
+      <div class="grid grid-cols-3 gap-3 sm:gap-4">
+        <div class="bg-slate-50 rounded-xl p-3 sm:p-4 border border-slate-100 text-center">
+          <div class="text-[11px] sm:text-xs font-semibold text-slate-500">제출된 작품 수</div>
+          <div id="admin-stat-total" class="text-lg sm:text-2xl font-extrabold text-slate-900 mt-0.5">0명</div>
+        </div>
+        <div class="bg-indigo-50/60 rounded-xl p-3 sm:p-4 border border-indigo-100 text-center">
+          <div class="text-[11px] sm:text-xs font-semibold text-indigo-700">세특 작성 완료</div>
+          <div id="admin-stat-done" class="text-lg sm:text-2xl font-extrabold text-indigo-700 mt-0.5">0명</div>
+        </div>
+        <div class="bg-amber-50/60 rounded-xl p-3 sm:p-4 border border-amber-100 text-center">
+          <div class="text-[11px] sm:text-xs font-semibold text-amber-700">세특 미작성</div>
+          <div id="admin-stat-pending" class="text-lg sm:text-2xl font-extrabold text-amber-700 mt-0.5">0명</div>
+        </div>
+      </div>
+
+      <!-- Submissions Evaluation Table -->
+      <div class="overflow-x-auto rounded-xl border border-slate-200">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 text-xs font-semibold">
+              <th class="py-3 px-3 text-center w-12">번호</th>
+              <th class="py-3 px-3 w-32">학생 정보</th>
+              <th class="py-3 px-3 w-48">작품 및 작가노트</th>
+              <th class="py-3 px-3">과목별 세부능력 및 특기사항 (세특) 기재 내용</th>
+              <th class="py-3 px-3 text-center w-20">관리</th>
+            </tr>
+          </thead>
+          <tbody id="admin-evaluation-tbody" class="divide-y divide-slate-100 bg-white">
+            <!-- Dynamic rows loaded by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CLASS BOARD HEADER & FILTER -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-4 sm:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 id="current-class-header-title" class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+            1학년 1반 갤러리
+          </h1>
+          <span id="class-artwork-count" class="bg-indigo-50 text-indigo-700 font-bold text-xs px-2.5 py-1 rounded-full">
+            총 0개 작품
+          </span>
+        </div>
+        <p id="class-description-text" class="text-xs sm:text-sm text-slate-500 mt-1">
+          학생들의 창의적 미술 작품 갤러리
+        </p>
+      </div>
+
+      <!-- Search & Mobile Action -->
+      <div class="flex items-center gap-2.5 w-full md:w-auto">
+        <div class="relative flex-1 md:w-64">
+          <input type="text" id="artwork-search-input" placeholder="작품명, 학생 이름, 학번 검색..."
+            class="w-full text-xs sm:text-sm pl-9 pr-3 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all">
+          <span class="absolute left-3 top-2.5 text-slate-400 text-xs">🔍</span>
+        </div>
+
+        <button onclick="openUploadModal()" class="md:hidden flex items-center gap-1 bg-indigo-600 text-white px-3 py-2 rounded-xl text-xs font-bold shrink-0">
+          <span>+ 등록</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ARTWORK GALLERY / PADLET WALL GRID -->
+    <div id="artwork-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+      <!-- Dynamic art cards loaded by JS -->
+    </div>
+
+  </main>
+
+  <!-- ==================================================== -->
+  <!-- MODAL: STUDENT ENTRY GATE (학번 & 이름 입력) -->
+  <!-- ==================================================== -->
+  <div id="student-entry-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-100 modal-enter-active">
+      <div class="text-center mb-6">
+        <div class="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-3 shadow-inner">
+          🎨
+        </div>
+        <h3 class="text-xl font-black text-slate-900">미술 수업 아트보드 입장</h3>
+        <p class="text-xs text-slate-500 mt-1">
+          현재 입장 반: <span id="gate-class-name" class="font-bold text-indigo-600">1학년 1반</span>
+        </p>
+        <p class="text-xs text-slate-400 mt-0.5">
+          작품 업로드 및 소통을 위해 본인의 학번과 이름을 입력해주세요.
+        </p>
+      </div>
+
+      <form onsubmit="handleSaveStudentEntry(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">학번 (예: 10101 또는 1-1 15번)</label>
+          <input type="text" id="gate-student-id" required placeholder="예: 10101"
+            class="w-full text-sm px-4 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">이름</label>
+          <input type="text" id="gate-student-name" required placeholder="예: 김민수"
+            class="w-full text-sm px-4 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none">
+        </div>
+
+        <div class="pt-2">
+          <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-md hover:shadow-lg transition-all text-sm">
+            🎨 입장하기
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- MODAL: UPLOAD ARTWORK (작품 등록 모달) -->
+  <!-- ==================================================== -->
+  <div id="upload-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto hidden">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-100 my-8 modal-enter-active">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+          <span>🎨</span>
+          <span>내 미술작품 등록하기</span>
+        </h3>
+        <button onclick="closeUploadModal()" class="text-slate-400 hover:text-slate-600 p-1 text-lg leading-none">&times;</button>
+      </div>
+
+      <form onsubmit="handleSubmitUpload(event)" class="space-y-4">
+        <!-- Class and Student Info -->
+        <div class="grid grid-cols-3 gap-2.5">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">반 선택</label>
+            <select id="upload-class-select" class="w-full text-xs px-2.5 py-2 rounded-xl border border-slate-200 bg-white focus:border-indigo-500 outline-none"></select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">학번</label>
+            <input type="text" id="upload-student-id" required placeholder="10101"
+              class="w-full text-xs px-2.5 py-2 rounded-xl border border-slate-200 focus:border-indigo-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">이름</label>
+            <input type="text" id="upload-student-name" required placeholder="김민수"
+              class="w-full text-xs px-2.5 py-2 rounded-xl border border-slate-200 focus:border-indigo-500 outline-none">
+          </div>
+        </div>
+
+        <!-- Artwork Image Upload Area -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">작품 사진 첨부 (촬영 또는 갤러리)</label>
+          <input type="file" id="upload-image-input" accept="image/*" class="hidden">
+          
+          <!-- Dropzone -->
+          <div id="upload-dropzone" class="border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-2xl p-6 text-center cursor-pointer bg-slate-50 hover:bg-indigo-50/40 transition-all">
+            <div class="text-3xl mb-2">📸</div>
+            <div class="text-xs font-semibold text-slate-700">사진을 클릭하여 촬영하거나 앨범에서 선택</div>
+            <div class="text-[11px] text-slate-400 mt-1">스마트폰 카메라 사진도 자동으로 고화질 최적화되어 등록됩니다.</div>
+          </div>
+
+          <!-- Preview Container -->
+          <div id="upload-preview-container" class="relative hidden mt-2 rounded-2xl overflow-hidden border border-slate-200 aspect-[4/3] bg-slate-100">
+            <img id="upload-preview-img" src="" alt="작품 미리보기" class="w-full h-full object-cover">
+            <button type="button" onclick="document.getElementById('upload-image-input').click()" 
+              class="absolute bottom-3 right-3 bg-black/70 hover:bg-black/90 text-white text-xs px-3 py-1.5 rounded-xl font-semibold backdrop-blur-xs">
+              사진 다시 선택
+            </button>
+          </div>
+        </div>
+
+        <!-- Title -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">작품 제목</label>
+          <input type="text" id="upload-title" required placeholder="예: 시간의 잔상, 내면의 자화상 등"
+            class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 outline-none">
+        </div>
+
+        <!-- Description with Guided Prompts -->
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="text-xs font-bold text-slate-700">작품 내용 및 작가노트</label>
+            <span class="text-[10px] text-indigo-600 font-semibold">* 선생님의 세특 작성에 직접 반영됩니다</span>
+          </div>
+          <div class="bg-indigo-50/60 p-2.5 rounded-xl text-[11px] text-indigo-900 leading-snug mb-2 border border-indigo-100">
+            💡 <strong>작성 가이드:</strong><br>
+            1. 창작 동기와 표현하고자 한 주제는 무엇인가요?<br>
+            2. 어떤 조형 기법(색채, 구도, 재료, 질감)을 중점적으로 활용했나요?<br>
+            3. 작품을 완성하며 느낀 점이나 전하고 싶은 메시지는 무엇인가요?
+          </div>
+          <textarea id="upload-desc" required rows="4" 
+            placeholder="위 가이드를 참고하여 자유롭게 자신의 작품을 설명해주세요..."
+            class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:border-indigo-500 outline-none leading-relaxed"></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-2">
+          <button type="submit" id="upload-submit-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-md hover:shadow-lg transition-all text-sm">
+            작품 등록하기
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- MODAL: ARTWORK DETAIL & PEER COMMENTS (상세보기) -->
+  <!-- ==================================================== -->
+  <div id="detail-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto hidden">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl border border-slate-100 my-8 modal-enter-active">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+        <div class="flex items-center gap-2">
+          <span id="detail-badge-class" class="bg-indigo-50 text-indigo-700 text-xs font-bold px-2.5 py-1 rounded-full">1학년 1반</span>
+          <span id="detail-student-info" class="text-xs font-bold text-slate-700">10101 홍길동</span>
+        </div>
+        <button onclick="closeDetailModal()" class="text-slate-400 hover:text-slate-600 p-1 text-xl leading-none">&times;</button>
+      </div>
+
+      <div class="space-y-4">
+        <!-- Full Image -->
+        <div class="rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 max-h-[420px] flex items-center justify-center">
+          <img id="detail-image" src="" alt="작품 이미지" class="w-full h-full object-contain max-h-[420px]">
+        </div>
+
+        <!-- Title & Like -->
+        <div class="flex items-center justify-between">
+          <h3 id="detail-title" class="text-lg font-black text-slate-900">작품 제목</h3>
+          <div class="flex items-center gap-1.5 text-xs text-slate-500 font-semibold bg-rose-50 text-rose-600 px-3 py-1.5 rounded-full">
+            <span>❤️</span>
+            <span id="detail-likes-count">0</span>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="bg-slate-50 rounded-2xl p-4 border border-slate-100">
+          <div class="text-xs font-bold text-slate-500 mb-1">작품 내용 및 작가노트</div>
+          <p id="detail-desc" class="text-xs text-slate-700 leading-relaxed whitespace-pre-wrap"></p>
+        </div>
+
+        <!-- Peer Comments Section -->
+        <div class="border-t border-slate-100 pt-4 space-y-3">
+          <div class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+            <span>💬</span>
+            <span>친구들의 응원 한마디</span>
+          </div>
+
+          <!-- Comments List -->
+          <div id="detail-comments-list" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+            <!-- Dynamic comments -->
+          </div>
+
+          <!-- Add Comment Input -->
+          <div class="flex items-center gap-2 pt-1">
+            <input type="text" id="detail-comment-input" placeholder="따뜻한 응원이나 감상평을 남겨주세요..."
+              class="flex-1 text-xs px-3 py-2 rounded-xl border border-slate-200 focus:border-indigo-500 outline-none">
+            <button onclick="handleDetailAddComment()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3 py-2 rounded-xl shrink-0">
+              작성
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- MODAL: CLASSROOM QR PRESENTER (수업 빔프로젝터용 대형 화면) -->
+  <!-- ==================================================== -->
+  <div id="qr-presenter-modal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div id="qr-print-container" class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl text-center space-y-5 modal-enter-active">
+      <div class="flex items-center justify-between no-print">
+        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">수업 화면 모드</span>
+        <button onclick="document.getElementById('qr-presenter-modal').classList.add('hidden')" class="text-slate-400 hover:text-slate-600 p-1 text-xl leading-none">&times;</button>
+      </div>
+
+      <div>
+        <h3 id="qr-modal-class-title" class="text-2xl font-black text-slate-900 tracking-tight">1학년 1반 접속용 QR코드</h3>
+        <p class="text-xs text-slate-500 mt-1">스마트폰 기본 카메라로 아래 QR코드를 비추면 즉시 입장할 수 있습니다.</p>
+      </div>
+
+      <!-- QR Code Canvas Container -->
+      <div class="p-4 bg-slate-50 rounded-2xl inline-block border border-slate-200 shadow-inner">
+        <div id="qr-presenter-code" class="flex items-center justify-center"></div>
+      </div>
+
+      <div class="bg-indigo-50/70 p-3.5 rounded-2xl border border-indigo-100 text-left text-xs text-indigo-950 space-y-1">
+        <div class="font-bold text-indigo-900">📱 학생 접속 순서:</div>
+        <div>1. 스마트폰 카메라로 QR코드를 스캔하여 접속합니다.</div>
+        <div>2. 첫 화면에서 <strong>학번과 이름</strong>을 입력하고 입장합니다.</div>
+        <div>3. <strong>[+ 내 작품 등록]</strong>을 눌러 작품 사진과 설명을 작성합니다.</div>
+      </div>
+
+      <div class="text-[11px] text-slate-400 break-all font-mono" id="qr-modal-url">
+        http://...
+      </div>
+
+      <div class="flex items-center justify-center gap-2 pt-2 no-print">
+        <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold transition-all">
+          🖨️ 인쇄하기
+        </button>
+        <button onclick="document.getElementById('qr-presenter-modal').classList.add('hidden')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-xl text-xs font-bold transition-all">
+          확인 완료
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- MODAL: AI & SE-TEUK SETTINGS (세특 문체 설정) -->
+  <!-- ==================================================== -->
+  <div id="settings-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 modal-enter-active">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+          <span>⚙️</span>
+          <span>AI 세특 평가 및 관리자 설정</span>
+        </h3>
+        <button onclick="closeSettingsModal()" class="text-slate-400 hover:text-slate-600 p-1 text-xl leading-none">&times;</button>
+      </div>
+
+      <form onsubmit="handleSaveSettings(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">세특 생성 기본 문체 스타일</label>
+          <select id="settings-style-select" class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 bg-white focus:border-indigo-500 outline-none">
+            <option value="balanced">🎨 종합 균형형 (발상 + 기법 + 소통 + 태도 표준)</option>
+            <option value="technique">🖌️ 조형요소 및 표현기법 중심 (재료, 마티에르, 테크닉 강조)</option>
+            <option value="creativity">💡 창의적 발상 및 독창성 중심 (참신한 시각, 개성 표현 강조)</option>
+            <option value="message">🔍 주제의식 및 비평적 시각 중심 (사회·철학적 메시지, 시각소통 강조)</option>
+            <option value="sensitivity">🌿 미적 감수성 및 내면 성찰 중심 (자아 탐색, 서정적 분위기 강조)</option>
+          </select>
+          <p class="text-[11px] text-slate-400 mt-1">교육부 학생부 기재요령 기준 문장 종결형(~함, ~임, ~을 구현함)으로 생성됩니다.</p>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Google Gemini API 키 (선택 사항)</label>
+          <input type="password" id="settings-gemini-key" placeholder="AI Studio에서 발급받은 Gemini API 키"
+            class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 outline-none">
+          <p class="text-[11px] text-slate-400 mt-1">
+            * 입력하지 않아도 <strong>내장된 미술과 세특 분석 엔진</strong>으로 100% 오프라인 작동합니다.<br>
+            * 입력 시 Gemini 2.5 Flash를 직접 호출하여 더욱 다채로운 비평 세특을 생성합니다.
+          </p>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">교사 관리자 비밀번호 변경</label>
+          <input type="password" id="settings-admin-pin" placeholder="기본값: 1234"
+            class="w-full text-xs px-3 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 outline-none">
+        </div>
+
+        <div class="pt-2">
+          <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-2.5 rounded-xl text-xs transition-all">
+            설정 저장하기
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+  <!-- App Script -->
+  <script src="app.js"></script>
+</body>
+</html>
